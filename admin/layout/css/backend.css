@@ -1,0 +1,76 @@
+/* start main rules */
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #f4f4f4
+}
+/* end main rules */
+
+
+/* start login form */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login {
+  width: 400px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px
+}
+
+.login h2 {
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+  color: #757575;
+}
+
+.login div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  position: relative;
+  color: #757575;
+}
+
+.login div i {
+  position: absolute;
+  font-size: 20px;
+}
+.login div i.eye {
+  margin-right: 10px;
+  right: 0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.login div i.key, .login div i.user {
+  margin-left: 10px;
+  left: 0;
+}
+.login input {
+  height: 45px;
+  font-size: 16px;
+}
+
+.login .form-control {
+  background-color: #eaeaea;
+  padding-left: 50px;
+  box-shadow: none;
+
+}
+
+.login .btn{
+  background-color: #008dde;
+  border: none;
+  font-size: 22px
+}
+
+/* start login form */
