@@ -22,9 +22,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">osama<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Edit Profile</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Log out</a></li>
+            <li><a href="#"><?php echo lang("EDITPROFILE") ?></a></li>
+            <li><a href="#"><?php echo lang("SETTINGS") ?></a></li>
+            <li><a href="#"><?php echo lang("LOGOUT") ?></a></li>
           </ul>
         </li>
       </ul>
