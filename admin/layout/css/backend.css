@@ -1,6 +1,7 @@
 /* start main rules */
 * {
   box-sizing: border-box;
+  font-size: 16px;
 }
 body {
   padding: 0;
@@ -17,11 +18,17 @@ body {
   align-items: center;
   height: 100vh;
 }
+
 .login {
   width: 400px;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px
+}
+@media (max-width: 600px) {
+  .login{
+    width: 300px;
+  }
 }
 
 .login h2 {
@@ -73,4 +80,40 @@ body {
   font-size: 22px
 }
 
-/* start login form */
+/* end login form */
+
+/* start navbar */
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.navbar-brand {
+  font-size: 1em;
+}
+
+.nav > li > a, .navbar-brand {
+  padding: 15px 12px;
+}
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-inverse .navbar-nav > .open > a:hover, 
+.dropdown-menu {
+  background-color: #3498db;
+}
+.dropdown-menu {
+  min-width: 180px;
+  padding: 0;
+  font-size: 1em;
+  border: none;
+  border-radius: 0;
+}
+.dropdown-menu > li > a{
+  color: white;
+  padding: 10px 15px;
+  transition: 0.3s ease-in-out padding;
+}
+.dropdown-menu> li > a:hover {
+  padding-left: 20px
+}
+/* end navbar */

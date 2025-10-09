@@ -1,19 +1,22 @@
-<?php 
+<?php
+  session_start();
+  if (isset($_SESSION["username"])) {
+    header("location: dashboard.php");
+  }
   include("init.php");
-  include($tpl . "header.php");
-  include($lang . "en.php");
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
     // check if user exist
-    $stmt = $con->prepare("SELECT username, password FROM users WHERE username = ? AND groupid = 1");
-    $stmt->execute(array($username));
+    $stmt = $con->prepare("SELECT username, password, fullname FROM users WHERE username = ? AND groupid = 1");
+    $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($row && password_verify($password, $row["password"]) ) {
-      echo "You Are An Admin";
-    }else {
-      echo "You Are Not an Admin";
+    if ($row) {
+      if (password_verify($password, $row["password"]))
+      $_SESSION["username"] = $username;
+      $_SESSION["fullname"] = $row["fullname"];
+      header("location: dashboard.php");
+      exit();
     }
   }
 ?>
