@@ -14,17 +14,17 @@
       <ul class="nav navbar-nav">
         <li><a href="#"><?php echo lang("CATEGORIES") ?></a></li>
         <li><a href="#"><?php echo lang("ITEMS") ?></a></li>
-        <li><a href="#"><?php echo lang("MEMBERS") ?></a></li>
+        <li><a href="members.php"><?php echo lang("MEMBERS") ?></a></li>
         <li><a href="#"><?php echo lang("STATISTICS") ?></a></li>
         <li><a href="#"><?php echo lang("LOGS") ?></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">osama<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["username"] ?><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><?php echo lang("EDITPROFILE") ?></a></li>
+            <li><a href="members.php?action=edit&userid=<?php echo $_SESSION['userid'] ?>"><?php echo lang("EDITPROFILE") ?></a></li>
             <li><a href="#"><?php echo lang("SETTINGS") ?></a></li>
-            <li><a href="#"><?php echo lang("LOGOUT") ?></a></li>
+            <li><a href="logout.php"><?php echo lang("LOGOUT") ?></a></li>
           </ul>
         </li>
       </ul>

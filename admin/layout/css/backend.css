@@ -12,23 +12,12 @@ body {
 
 
 /* start login form */
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 .login {
-  width: 400px;
+  max-width: 500px;
+  margin: 150px auto;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px
-}
-@media (max-width: 600px) {
-  .login{
-    width: 300px;
-  }
 }
 
 .login h2 {
@@ -38,7 +27,8 @@ body {
   color: #757575;
 }
 
-.login div {
+.login div, 
+.edit div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +37,8 @@ body {
   color: #757575;
 }
 
-.login div i {
+.login div i,
+.edit div i {
   position: absolute;
   font-size: 20px;
 }
@@ -58,23 +49,27 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.login div i.key, .login div i.user {
+.login div i:not(.eye), 
+.edit div i:not(.eye) {
   margin-left: 10px;
   left: 0;
 }
-.login input {
+.login input,
+.edit input {
   height: 45px;
   font-size: 16px;
 }
 
-.login .form-control {
+.login .form-control, 
+.edit .form-control {
   background-color: #eaeaea;
   padding-left: 50px;
   box-shadow: none;
 
 }
 
-.login .btn{
+.login .btn, 
+.edit .btn {
   background-color: #008dde;
   border: none;
   font-size: 22px
@@ -119,3 +114,25 @@ body {
   background-color: #8e44ad
 }
 /* end navbar */
+
+/* start edit */
+h1 {
+  margin: 20px;
+  color: #888;
+  font-weight: bold;
+  font-size: 55px
+}
+
+
+form.edit {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px
+}
+
+
+
+
+/* end edit */

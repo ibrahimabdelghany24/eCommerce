@@ -3,7 +3,7 @@
     static $lang = array(
       // Navebar
       "HOME"       => "Home Page",
-      "CATEGORIES" => "Sections",
+      "CATEGORIES" => "Categories",
       "ITEMS"      => "Items",
       "MEMBERS"    => "Members",
       "STATISTICS" => "Statistics",
@@ -11,7 +11,7 @@
       "EDITPROFILE" => "Edit Profile",
       "SETTINGS" => "Settings",
       "LOGOUT" => "Log out",
-      "" => "",
+      "ADMINLOGIN" => "Admin Login",
       "" => "",
       "" => "",
       "" => "",

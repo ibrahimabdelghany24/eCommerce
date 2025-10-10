@@ -8,6 +8,6 @@
     <link rel="stylesheet" href="<?php echo $css; ?>fontawesome.min.css">
     <link rel="stylesheet" href="<?php echo $css; ?>bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $css; ?>backend.css">
-    <title>Admin</title>
+    <title><?php get_title() ?></title>
   </head>
   <body>
