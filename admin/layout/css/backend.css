@@ -8,27 +8,37 @@ body {
   margin: 0;
   background-color: #f4f4f4
 }
+
+.astrisk {
+  color: red; 
+  font-size: 20px; 
+  position: absolute; 
+  right: 3px;
+  top: 12px; 
+}
 /* end main rules */
 
 
 /* start login form */
-.login {
+.form {
   max-width: 500px;
-  margin: 150px auto;
+  margin: auto;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px
 }
 
-.login h2 {
+.login {
+  margin: 150px auto;
+}
+.form h2 {
   text-align: center;
   padding: 20px;
   margin: 0;
   color: #757575;
 }
 
-.login div, 
-.edit div {
+.form div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,39 +47,34 @@ body {
   color: #757575;
 }
 
-.login div i,
-.edit div i {
+.form div i {
   position: absolute;
   font-size: 20px;
 }
-.login div i.eye {
+.form div i.eye {
   margin-right: 10px;
   right: 0;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 
-.login div i:not(.eye), 
-.edit div i:not(.eye) {
+.form div i:not(.eye) {
   margin-left: 10px;
   left: 0;
 }
-.login input,
-.edit input {
+.form input {
   height: 45px;
   font-size: 16px;
 }
 
-.login .form-control, 
-.edit .form-control {
+.form .form-control {
   background-color: #eaeaea;
   padding-left: 50px;
   box-shadow: none;
 
 }
 
-.login .btn, 
-.edit .btn {
+.form .btn {
   background-color: #008dde;
   border: none;
   font-size: 22px
@@ -123,16 +128,23 @@ h1 {
   font-size: 55px
 }
 
-
-form.edit {
-  max-width: 500px;
-  margin: auto;
+/* end edit */
+.error, .success {
+  background-color: #ffcdd2;
+  text-align: center;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px
+  margin: 10px auto;
+  color: #af1717;
+  border-left: 5px solid #af1717;
+  max-width: 500px;
+}
+strong {
+  font-size: inherit;
 }
 
+.success {
+  background-color: #d4edda;
+  color :#155724;
+  border-left: 5px solid #1e8035;
+}
 
-
-
-/* end edit */

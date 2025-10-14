@@ -23,7 +23,7 @@
   }
 ?>
 
-  <form class="login" action="index.php" method="POST">
+  <form class="login form" action="index.php" method="POST">
     <h2><?php echo lang("ADMINLOGIN") ?></h2>
     <div>
       <i class="fa-solid fa-user user"></i>

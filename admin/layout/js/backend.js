@@ -30,3 +30,12 @@ if (inputs) {
     })
   })
 }
+
+let required_input = document.querySelectorAll("input[required]");
+required_input.forEach(($e) => {
+  let span = document.createElement("span");
+  span.classList.add("astrisk")
+  span.innerHTML = "*";
+  console.log(span)
+  $e.insertAdjacentElement("afterend", span)
+})
