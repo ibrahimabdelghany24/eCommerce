@@ -1,6 +1,6 @@
 let eyeIcon = document.querySelector("i.eye")
 let inputs = document.querySelectorAll(".form-control");
-
+let confirm = document.querySelectorAll(".confirm")
 if (eyeIcon) {
   eyeIcon.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye")) {
@@ -30,12 +30,12 @@ if (inputs) {
     })
   })
 }
-
-let required_input = document.querySelectorAll("input[required]");
-required_input.forEach(($e) => {
-  let span = document.createElement("span");
-  span.classList.add("astrisk")
-  span.innerHTML = "*";
-  console.log(span)
-  $e.insertAdjacentElement("afterend", span)
-})
+if (confirm) {
+  confirm.forEach(($e) => {
+    $e.addEventListener("click", ($event) => {
+      if (!window.confirm("Are You Sure?")){
+        $event.preventDefault();
+      }
+    })
+  })
+}

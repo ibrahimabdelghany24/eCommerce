@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><?php echo lang("HOME")?></a>
+      <a class="navbar-brand" href="dashboard.php"><?php echo lang("HOME")?></a>
     </div>
 
     <div class="collapse navbar-collapse" id="app-nav">

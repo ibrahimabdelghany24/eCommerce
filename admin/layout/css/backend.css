@@ -8,13 +8,9 @@ body {
   margin: 0;
   background-color: #f4f4f4
 }
-
-.astrisk {
-  color: red; 
-  font-size: 20px; 
-  position: absolute; 
-  right: 3px;
-  top: 12px; 
+.btn {
+  font-size: 16px;
+  font-weight: bold;
 }
 /* end main rules */
 
@@ -122,29 +118,43 @@ body {
 
 /* start edit */
 h1 {
-  margin: 20px;
+  margin: 40px;
   color: #888;
   font-weight: bold;
   font-size: 55px
 }
 
 /* end edit */
-.error, .success {
-  background-color: #ffcdd2;
+/* start add */
+.alert {
   text-align: center;
-  padding: 20px;
   margin: 10px auto;
-  color: #af1717;
-  border-left: 5px solid #af1717;
   max-width: 500px;
 }
 strong {
   font-size: inherit;
 }
+/* end add */
 
-.success {
-  background-color: #d4edda;
-  color :#155724;
-  border-left: 5px solid #1e8035;
+/* start manage */
+.main-table {
+  box-shadow: 0 3px 10px #ccc;
+  border-radius: 5px
 }
+.main-table th {
+  text-align: center;
+  background-color: #333;
+  color: #fff
+}
+
+.main-table td {
+  background-color: #fff;
+  vertical-align: middle !important; 
+}
+
+.main-table .btn {
+  padding: 3px 10px;
+  font-weight: bold;
+}
+/* end manage */
 
