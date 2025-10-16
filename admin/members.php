@@ -6,9 +6,11 @@ if (isset($_SESSION["username"])) {
   include("init.php");
   $action = (isset($_GET["action"])) ? $_GET["action"] : "manage";
   if ($action == "manage") { // manage page
-    $stmt = $con->prepare("SELECT * FROM users WHERE groupid != 1");
+    $query = (isset($_GET["page"]) && $_GET["page"] == "pending") ? "AND reg_status = 0" : "";
+    $stmt = $con->prepare("SELECT * FROM users WHERE groupid != 1 {$query}");
     $stmt->execute();
-    $rows = $stmt->fetchAll()?>
+    $rows = $stmt->fetchAll();
+    ?>
     <h1 class="text-center">Manage Members</h1>
     <div class="container">
       <div class="table-responsive">
@@ -31,11 +33,19 @@ if (isset($_SESSION["username"])) {
               echo "<td>" . $row["username"] ."</td>";
               echo "<td>" . $row["email"] ."</td>";
               echo "<td>" . $row["fullname"] ."</td>";
-              echo "<td></td>";
+              echo "<td>" . $row["date"] ."</td>";
               echo "<td>
               <a href='?action=edit&userid={$row["userid"]}' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i> Edit</a>
-              <a href='?action=delete&userid={$row["userid"]}' class='btn btn-danger confirm'><i class='fa-solid fa-trash'></i> Delete</a>
-              </td>";
+              <form method='POST' action='?action=delete' style='display:inline;'>
+              <input type='hidden' name='userid' value='{$row["userid"]}'>
+              <button type='submit' class='btn btn-danger confirm'>
+              <i class='fa-solid fa-trash'></i> Delete
+              </button>
+              </form>";
+              if (!$row["reg_status"]):
+              echo "<a href='?action=activate&userid={$row["userid"]}' class='btn btn-primary'><i class='fa-solid fa-square-check'></i> Activate</a>";
+              endif;
+              echo "</td>";
               echo "<tr>";
             endforeach;
             ?>
@@ -77,7 +87,7 @@ if (isset($_SESSION["username"])) {
       </div>
     <?php
     } else {
-          redirect_home("There is no such ID", "back", 7, "danger");
+          redirect_home(["There is no such ID"], "back", "danger");
         }
   // edit end
   } elseif ($action == "update") { // update page
@@ -104,29 +114,30 @@ if (isset($_SESSION["username"])) {
       if (empty($email)) {
         $errors[] = "Email can't be <strong>empty</strong>";
       }
-      foreach ($errors as $error) :
-        echo "<h3 class='alert alert-danger' >$error</h3>";
-      endforeach;
       if (empty($errors)) :
         if (empty($password)) {
           $stmt = $con->prepare("UPDATE users
                                     SET
                                     username = ?, email = ?, fullname = ?
-                                    WHERE userid = ?");
+                                    WHERE 
+                                    userid = ?");
           $stmt->execute([$username, $email, $name, $userid]);
         } else {
           $hashed = password_hash($password, PASSWORD_DEFAULT);
           $stmt = $con->prepare("UPDATE users
                                   SET 
                                   username = ?, email = ?, fullname = ?, password = ?
-                                  WHERE userid = ?");
+                                  WHERE
+                                  userid = ?");
           $stmt->execute([$username, $email, $name, $hashed, $userid]);
         }
+      else:
+        redirect_home($errors, "back", "danger");
       endif;
-      $msg = $stmt->rowCount() . " record updated</h3>";
-      redirect_home($msg, "back", "success", 7);
+      $msg = [$stmt->rowCount() . " record updated"];
+      redirect_home($msg, "back", "success");
     } else {
-      redirect_home("You can't browse this page directly", "back", "danger", 7);
+      redirect_home(["You can't browse this page directly"], "back", "danger");
     }
   // update end
   } elseif ($action == "add") { // add page?>
@@ -181,43 +192,46 @@ if (isset($_SESSION["username"])) {
       if (empty($email)) {
         $errors[] = "Email can't be <strong>empty</strong>";
       }
-      foreach ($errors as $error) :
-        echo "<h3 class='alert alert-danger' >$error</h3>";
-      endforeach;
       if (empty($errors)) :
         if (!is_exist("username", "users", $username)):
           $hashed = password_hash($password, PASSWORD_DEFAULT);
           $stmt = $con->prepare("INSERT INTO 
-                                  users(username, password, email, fullname)
-                                  VALUES(?, ?, ?, ?)");
+                                  users(username, password, email, fullname, reg_status, date)
+                                  VALUES(?, ?, ?, ?, 1, now())");
           $stmt->execute([$username, $hashed, $email, $name]);
-          echo "<h3 class='alert alert-success'>" . $stmt->rowCount() . " User added</h3>";
+          $msg = [$stmt->rowCount() . " User added"];
+          redirect_home($msg, "back", "success");
         else:
-          echo "<h3 class='alert alert-danger'>{$username} is already exist</h3>";
-          echo "<h3 class='alert alert-danger'>No Users added</h3>";
+          $msg = ["{$username} is already exist", "No Users added"];
+          redirect_home($msg, "back", "danger");
         endif;
+      else:
+        redirect_home($errors, "back", "danger");
       endif;
     } else {
-      redirect_home("You can't browse this page directly", "back", 7,"danger");
+      redirect_home(["You can't browse this page directly"], "back", "danger");
     }
   // end insert
   }elseif ($action == "delete") { // delete page
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST"):
       echo "<h1 class='text-center'>Delete User</h1>";
       $row = 0;
-      $userid = (isset($_GET["userid"]) && is_numeric($_GET["userid"])) ? intval($_GET["userid"]) : 0;
+      $userid = (isset($_POST["userid"]) && is_numeric($_POST["userid"])) ? intval($_POST["userid"]) : 0;
       if (is_exist("userid", "users", $userid)):
-        $stmt = $con->prepare("DELETE FROM users WHERE userid = ?");
+        $stmt = $con->prepare("DELETE FROM users WHERE userid = ? LIMIT 1");
         $stmt->execute([$userid]);
         $row = $stmt->rowCount();
+        $msg = [$row . " User deleted"];
+        redirect_home($msg, "back", "success");
+      else:
+        $msg = "There is no such ID";
+        redirect_home($msg, "back", "danger");
       endif;
-      $msg = $stmt->rowCount() . " User deleted</h3>";
-      redirect_home($msg, "back", "success", 7);
-    } else {
-      redirect_home("You can't browse this page directly", "back", "danger", 7);
-    }
-  }
+    else:
+      redirect_home(["You can't browse this page directly"], "back", "danger");
+    endif;
   // end delete
+  }
   include($tpl . "footer.php");
 } else {
   header("location: index.php");

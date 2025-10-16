@@ -1,9 +1,9 @@
 /* start main rules */
 * {
   box-sizing: border-box;
-  font-size: 16px;
 }
 body {
+  font-size: 16px;
   padding: 0;
   margin: 0;
   background-color: #f4f4f4
@@ -127,7 +127,6 @@ h1 {
 /* end edit */
 /* start add */
 .alert {
-  text-align: center;
   margin: 10px auto;
   max-width: 500px;
 }
@@ -135,6 +134,46 @@ strong {
   font-size: inherit;
 }
 /* end add */
+
+/* start dashboard */
+.home-stats .stat {
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.home-stats .st-members {
+  background-color: #3498db;
+}
+
+.home-stats .st-pending {
+  background-color: #c0392b;
+}
+
+.home-stats .st-items {
+  background-color: #d35400;
+}
+
+.home-stats .st-comments {
+  background-color: #8e44ad;
+}
+
+.home-stats .stat span {
+  display: block;
+  font-size: 60px;
+
+}
+
+.home-stats .stat span a {
+  text-decoration: none;
+  color: white;
+}
+
+.latest {
+  margin-top: 30px
+}
+/* end dashboard */
 
 /* start manage */
 .main-table {
