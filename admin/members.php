@@ -231,6 +231,20 @@ if (isset($_SESSION["username"])) {
       redirect_home(["You can't browse this page directly"], "back", "danger");
     endif;
   // end delete
+  }elseif ($action == "activate"){ // activate page
+    echo "<h1 class='text-center'>Activate User</h1>";
+    $userid = (isset($_GET["userid"]) && is_numeric($_GET["userid"])) ? intval($_GET["userid"]) : 0;
+    if (is_exist("userid", "users", $userid)):
+      $stmt = $con->prepare("UPDATE users SET reg_status = ? WHERE userid = ?");
+      $stmt->execute([1, $userid]);
+      $row = $stmt->rowCount();
+      $msg = [$row . " User Activated"];
+      redirect_home($msg, "back", "success");
+    else:
+      $msg = "There is no such ID";
+      redirect_home($msg, "back", "danger");
+    endif;
+  // end activate
   }
   include($tpl . "footer.php");
 } else {

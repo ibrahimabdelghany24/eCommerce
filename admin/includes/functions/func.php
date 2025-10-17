@@ -48,3 +48,16 @@
     $stmt->execute();
     return $stmt->fetchColumn();
   }
+
+  // function get_latest
+  function get_latest($item, $table, $order, $limit, $condition="") {
+    global $con;
+    $statement = $con->prepare("SELECT {$item}
+                                FROM {$table} 
+                                {$condition}
+                                ORDER BY {$order} DESC
+                                LIMIT {$limit}");
+    $statement->execute();
+    $rows = $statement->fetchAll();
+    return $rows;
+  }

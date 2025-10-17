@@ -12,6 +12,10 @@ body {
   font-size: 16px;
   font-weight: bold;
 }
+
+a {
+  text-decoration: none;
+}
 /* end main rules */
 
 
@@ -144,19 +148,23 @@ strong {
 }
 
 .home-stats .st-members {
-  background-color: #3498db;
+  /* background-color: #3498db; */
+  background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%);
 }
 
 .home-stats .st-pending {
-  background-color: #c0392b;
+  /* background-color: #c0392b; */
+  background: linear-gradient(90deg, rgb(54, 129, 216) 0%, rgb(171, 88, 255) 100%);
 }
 
 .home-stats .st-items {
-  background-color: #d35400;
+  /* background-color: #d35400; */
+  background: linear-gradient(90deg,rgb(207, 169, 247) 0%, rgb(157, 46, 189) 100%);
 }
 
 .home-stats .st-comments {
-  background-color: #8e44ad;
+  /* background-color: #8e44ad; */
+  background: linear-gradient(90deg,rgb(174, 80, 250) 0%, rgb(95, 6, 132) 100%);
 }
 
 .home-stats .stat span {
@@ -172,6 +180,22 @@ strong {
 
 .latest {
   margin-top: 30px
+}
+
+.latest-users {
+  margin-bottom: 0; 
+}
+.latest-users li {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.latest-users li:nth-child(odd) {
+  background-color: #eee
+}
+.latest-users li .btn {
+  padding: 2px 10px;
 }
 /* end dashboard */
 
