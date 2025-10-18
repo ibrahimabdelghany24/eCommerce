@@ -19,18 +19,18 @@
       }
     }
     if ($class == "danger") {
-      $title = "Error ";
+      $title = lang("ERROR"). " ";
     }else {
       $title = "";
     }
     if (!empty($msg)):
       echo "<div class='alert alert-$class text-center' role='alert'>";
-      echo "<h2 class='alert-heading'>{$title}Message</h2>";
+      echo "<h2 class='alert-heading'>{$title}". lang("MESSAGE") ."</h2>";
       echo "<hr>";
       foreach ($msg as $p):
       echo "<p style='font-size:20px'>$p</p><hr>";
       endforeach;
-      echo "<a class='btn btn-primary' href='$url'>Go Back</a>";
+      echo "<a class='btn btn-primary' href='$url'>". lang("GOBACK") ."</a>";
       echo "</div>";
     endif;
   }
