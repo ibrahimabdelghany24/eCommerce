@@ -143,7 +143,7 @@ if (isset($_SESSION["username"])) {
       redirect_home([lang("CANTBROWSE")], "back", "danger");
     }
   // update end
-  } elseif ($action == "add") { // add page?>
+  }elseif ($action == "add") { // add page?>
       <h1 class="text-center"><?php echo lang("ADDUSER") ?></h1>
       <div class="container">
         <form class="Add form" action="?action=insert" method="POST" autocomplete="off">
@@ -164,7 +164,7 @@ if (isset($_SESSION["username"])) {
             <i class="fa-solid fa-id-card"></i>
             <input class="form-control" type="text" name="fullname" placeholder="<?php echo lang("FULLNAME")?>" data-text="<?php echo lang("FULLNAME")?>" autocomplete="off" required>
           </div>
-          <input class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang("ADD") . " " . lang("MEMBER")?>">
+          <input class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang("ADDUSER")?>">
         </form>
       </div>
       <?php

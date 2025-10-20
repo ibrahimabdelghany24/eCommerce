@@ -8,7 +8,7 @@
     }
   }
   // redirect function
-  function redirect_home($msg, $url=null, $class) {
+  function redirect_home($msg, $url=null, $class, $btn=true, $time=5) {
     if ($url === null){
       $url = "index.php";
     }elseif ($url == "back"){
@@ -30,7 +30,13 @@
       foreach ($msg as $p):
       echo "<p style='font-size:20px'>$p</p><hr>";
       endforeach;
-      echo "<a class='btn btn-primary' href='$url'>". lang("GOBACK") ."</a>";
+      if ($btn) {
+        echo "<a class='btn btn-primary' href='$url'>". lang("GOBACK") ."</a>";
+      }else {
+        echo "<p style='font-size:20px'>". lang("REDIRECT") . $time . "</p><hr>";
+        header("refresh: $time; url=$url");
+        exit();
+      }
       echo "</div>";
     endif;
   }

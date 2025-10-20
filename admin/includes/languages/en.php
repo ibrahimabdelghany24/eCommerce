@@ -37,6 +37,21 @@
       "DELETEUSER"   => "Delete Member",
       "ADDUSER"      => "Add Member",
       "ACTIVATEUSER" => "Activate Member",
+      // Dashboard
+      "DASHBOARD"  => "Dashboard",
+      "TOTALMEMBERS"  => "Total Members",
+      "PENDINGMEMBERS"  => "Pending Members",
+      "TOTALITEMS"  => "Total Items",
+      "TOTALCOMMENTS"  => "Total Comments",
+      "LATESTMEMBERS"  => "Latest members",
+      "LATESTITEMS"  => "Latest items",
+      // Categories
+      "ADDCAT"  => "Add Category",
+      "CATNAME"  => "Category Name",
+      "CATDESCRIPTION"  => "Category Discription",
+      "CATORDERING"  => "Category Order",
+      "ADDCAT"  => "Add Category",
+
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",
       "NOID"          => "There is no such ID",
@@ -58,6 +73,7 @@
       "GOBACK"        => "Go Back",
       "MESSAGE"        => "Message",
       "ERROR"        => "Error",
+      "REDIRECT"        => "You will be redirected to the home page after ",
     );
     return $lang[$phrase];
   }

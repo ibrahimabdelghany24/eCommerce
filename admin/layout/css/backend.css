@@ -8,6 +8,10 @@ body {
   margin: 0;
   background-color: #f4f4f4
 }
+
+label {
+  margin-bottom: 0;
+}
 .btn {
   font-size: 16px;
   font-weight: bold;
@@ -71,7 +75,6 @@ a {
   background-color: #eaeaea;
   padding-left: 50px;
   box-shadow: none;
-
 }
 
 .form .btn {
@@ -220,4 +223,45 @@ strong {
   font-weight: bold;
 }
 /* end manage */
+
+/* start category */
+.form.add-cat .form-control {
+  padding-left: 12px;
+}
+.form div:has(span ~ label) {
+  justify-content: flex-start;
+  margin: 0;
+  border-bottom: 2px solid #ccc;
+}
+.form.add-cat div:last-of-type {
+  margin-bottom: 10px;
+}
+
+.form div:has(span) input[type="radio"] {
+  margin: 0 5px;
+}
+.form div:has(span) input[type=text] {
+  font-weight: normal;
+}
+
+.form div span {
+  font-weight: bold;
+}
+
+.form.add-cat div > label.feild {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form.add-cat div > label:has(input[type="radio"]) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  padding: 0 10px;
+  margin: 0;
+}
+/* end category */
 
