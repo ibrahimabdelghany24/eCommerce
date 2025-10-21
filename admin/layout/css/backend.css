@@ -218,7 +218,8 @@ strong {
   vertical-align: middle !important; 
 }
 
-.main-table .btn {
+.main-table .btn, 
+.cat .btn {
   padding: 3px 10px;
   font-weight: bold;
 }
@@ -263,5 +264,66 @@ strong {
   padding: 0 10px;
   margin: 0;
 }
+
+.categories .panel-body {
+  padding: 10px;
+}
+
+.cat {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 15px;
+}
+.cat:last-of-type {
+  border-bottom: none;
+}
+
+.cat > div:has(h2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cat > div > h2 {
+  margin: 0;
+}
+.cat > div > div > a {
+  margin-left: 10px;
+}
+
+
+.cat p {
+  margin: 10px 0;
+}
+.cat > div > span {
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: white;
+  font-weight: bold;
+}
+.cat > div > span.visible {
+  background-color: #28a745;
+}
+
+.cat > div > span.allow-comment {
+  background-color: #ddb848;
+}
+
+.cat > div > span.allow-ads {
+  background-color: #17a2b8; 
+}
+
+.cat > div > span.not-visible {
+  background-color: #6c757d;
+}
+
+.cat > div > span.comment-disabled {
+  background-color: #dc3545;
+}
+
+.cat > div > span.ads-disabled {
+  background-color: #343a40;
+}
+
 /* end category */
 
