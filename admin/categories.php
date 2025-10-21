@@ -217,9 +217,10 @@
         redirect_home([lang("CANTBROWSE")], "back", "danger", false);
       }
     // end update
-    }elseif ($action == "delete") {
+    }elseif ($action == "delete") { // delete
       
     }
+    // end delete
     include($tpl . "footer.php");
   }else {
     header("location: index.php");
