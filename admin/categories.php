@@ -5,15 +5,30 @@
   if (isset($_SESSION["username"])) {
     include("init.php");
     $action = (isset($_GET["action"]))? $_GET["action"] : "manage";
-    if ($action == "manage") {
-      $stmt = $con->prepare("SELECT * FROM categories");
+    if ($action == "manage") { // manage
+      $sort = (isset($_GET["sort"]))? $_GET["sort"] :"ASC";
+      $stmt = $con->prepare("SELECT * FROM categories ORDER BY id $sort");
       $stmt->execute();
       $cats = $stmt->fetchAll();?>
       <h1 class='text-center'><?php echo lang("MANAGECAT") ?></h1>
       <div class="container categories">
         <div class="panel panel-default">
           <div class="panel-heading">
+            <div>
             <?php echo lang("CATEGORIES")?>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?php echo lang("FILTER") ?>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                
+                <a class="dropdown-item" href="?sort=ASC"><?php echo lang("SORTASC")?><?php if ($sort == "ASC") echo '<i class="fa-solid fa-check pull-right"></i>'?></a>
+                <a class="dropdown-item" href="?sort=DESC"><?php echo lang("SORTDESC")?><?php if ($sort == "DESC") echo '<i class="fa-solid fa-check pull-right"></i>'?></a>
+                <a class="dropdown-item v-full"><?php echo lang("FULLVIEW") ?><i class="fa-solid fa-check pull-right"></i></a>
+                <a class="dropdown-item v-less"><?php echo lang("LESSVIEW") ?><i class="fa-solid fa-check pull-right hidden"></i></a>
+              </div>
+            </div>
           </div>
           <div class="panel-body">
             <?php
@@ -23,14 +38,16 @@
                   echo "<h2 class='cat-name'>{$cat['name']}</h2>";
                   echo "<div>";
                   echo "<a class='btn btn-success' href=?action=edit&catid={$cat["id"]}><i class='fa-solid fa-pen-to-square'></i> " . lang("EDIT") . "</a>";
-                  echo "<a class='btn btn-danger' href=?action=delete&catid={$cat["id"]}><i class='fa-solid fa-trash'></i>" . lang("DELETE") . "</a>";
+                  echo "<a class='btn btn-danger confirm' href=?action=delete&catid={$cat["id"]}><i class='fa-solid fa-trash'></i>" . lang("DELETE") . "</a>";
                   echo "</div>";
                 echo "</div>";
+                echo "<div class='cat-details'>";
                 echo "<p>" . ((empty($cat["description"]))? "No description" : $cat["description"]) ."</p>";
                 echo "<div>";
                   echo (($cat["visibility"])? "<span class='visible'>". lang("VISIBLE") ."</span>" : "<span class='not-visible'>". lang("HIDDEN") ."</span>");
                   echo (($cat["allow_comment"])? "<span class='allow-comment'>". lang("COMALLOWED") ."</span>" : "<span class='comment-disabled'>". lang("COMDISABLED") ."</span>");
                   echo (($cat["allow_ads"])? "<span class='allow-ads'>". lang("ADSALLOWED") ."</span>" : "<span class='ads-disabled'>". lang("ADSDISABLED") ."</span>");
+                echo "</div>";
                 echo "</div>";
               echo "</div>";
             endforeach;
@@ -40,6 +57,7 @@
         <a class="btn btn-primary" href="?action=add"><i class="fa fa-plus"></i> <?php echo lang("ADDCAT") ?></a>
       </div>
     <?php
+    // end manage
     }elseif ($action == "add") { // add page?>
       <h1 class="text-center"><?php echo lang("ADDCAT") ?></h1>
       <div class="container">
@@ -125,7 +143,7 @@
       }
     //end insert
     }elseif ($action == "edit") {  // edit page
-      $catid = (isset($_GET["catid"])) ? intval($_GET["catid"]) : 0;
+      $catid = (isset($_GET["catid"]) && is_numeric($_GET["catid"])) ? intval($_GET["catid"]) : 0;
       if (is_exist("id", "categories", $catid)) { 
         $stmt = $con->prepare("SELECT * FROM categories WHERE id = ?");
         $stmt->execute([$catid]);
@@ -218,7 +236,17 @@
       }
     // end update
     }elseif ($action == "delete") { // delete
-      
+      echo "<h1 class='text-center'>". lang("DELETECAT") ."</h1>";
+      $catid = (isset($_GET["catid"]) && is_numeric($_GET["catid"])) ? intval($_GET["catid"]) : 0;
+      if (is_exist("id", "categories", $catid)) {
+        $stmt = $con->prepare("DELETE FROM categories WHERE id = ? LIMIT 1");
+        $stmt->execute([$catid]);
+        $row = $stmt->rowCount();
+        $msg = [lang("CATDELETED")];
+        redirect_home($msg, "back", "success");
+      }else {
+        redirect_home([lang("NOCATDELETED")], "back", "danger");
+      }
     }
     // end delete
     include($tpl . "footer.php");

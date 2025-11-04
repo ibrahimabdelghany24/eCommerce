@@ -231,7 +231,7 @@ if (isset($_SESSION["username"])) {
         redirect_home($msg, "back", "danger");
       endif;
     else:
-      redirect_home([lang("CANTBROWSE")], "back", "danger");
+      redirect_home([lang("CANTBROWSE")], "back", "danger", false);
     endif;
   // end delete
   }elseif ($action == "activate"){ // activate page
