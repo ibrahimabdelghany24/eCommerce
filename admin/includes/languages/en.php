@@ -65,10 +65,12 @@
       "NO" => "No",
       "FILTER" => "Filter",
       "ADDCAT" => "Add Category",
-      "SORTASC" => "Sort ASC",
-      "SORTDESC" => "Sort DESC",
-      "FULLVIEW" => "Full View",
-      "LESSVIEW" => "Less View",
+      "SORTBY" => "Sort By",
+      "SORTASC" => "ASC",
+      "SORTDESC" => "DESC",
+      "VIEWMODE" => "View Mode",
+      "FULLVIEW" => "Full",
+      "LESSVIEW" => "Less",
 
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",

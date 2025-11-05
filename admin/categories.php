@@ -18,16 +18,19 @@
             <?php echo lang("CATEGORIES")?>
             </div>
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php echo lang("FILTER") ?>
+                <span class="caret"></span>
               </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                
-                <a class="dropdown-item" href="?sort=ASC"><?php echo lang("SORTASC")?><?php if ($sort == "ASC") echo '<i class="fa-solid fa-check pull-right"></i>'?></a>
-                <a class="dropdown-item" href="?sort=DESC"><?php echo lang("SORTDESC")?><?php if ($sort == "DESC") echo '<i class="fa-solid fa-check pull-right"></i>'?></a>
-                <a class="dropdown-item v-full"><?php echo lang("FULLVIEW") ?><i class="fa-solid fa-check pull-right"></i></a>
-                <a class="dropdown-item v-less"><?php echo lang("LESSVIEW") ?><i class="fa-solid fa-check pull-right hidden"></i></a>
-              </div>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <li class="dropdown-header"><?php echo lang("SORTBY") ?></li>
+                <li><a href="?sort=ASC"><?php echo lang("SORTASC") ?><?php if ($sort == "ASC") echo '<i class="fa fa-check pull-right"></i>'?></a></li>
+                <li><a href="?sort=DESC"><?php echo lang("SORTDESC") ?><?php if ($sort == "DESC") echo '<i class="fa fa-check pull-right"></i>'?></a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header"><?php echo lang("VIEWMODE") ?></li>
+                <li><a class="v-full"><?php echo lang("FULLVIEW") ?><i class="fa fa-check pull-right"></i></a></li>
+                <li><a class="v-less"><?php echo lang("LESSVIEW") ?><i class="fa fa-check pull-right hidden"></i></a></li>
+              </ul>
             </div>
           </div>
           <div class="panel-body">
