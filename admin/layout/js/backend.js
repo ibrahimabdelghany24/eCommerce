@@ -4,7 +4,7 @@ const confirm = document.querySelectorAll(".confirm")
 const viewLess = document.querySelector(".v-less");
 const viewFull = document.querySelector(".v-full");
 const categorey = document.querySelectorAll(".cat");
-
+const stars = document.querySelectorAll(".star i");
 if (eyeIcon) {
   eyeIcon.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye")) {
@@ -53,20 +53,41 @@ categorey.forEach((cat) => {
   })
 });
 
-viewLess.onclick = () => {
-  viewLess.lastElementChild.classList.remove("hidden");
-  viewFull.lastElementChild.classList.add("hidden");
-  const details = document.querySelectorAll(".cat-details");
-  details.forEach(element => {
-    element.classList.add("hide-details");
-  });
+if (viewLess) {
+  viewLess.onclick = () => {
+    viewLess.lastElementChild.classList.remove("hidden");
+    viewFull.lastElementChild.classList.add("hidden");
+    const details = document.querySelectorAll(".cat-details");
+    details.forEach(element => {
+      element.classList.add("hide-details");
+    });
+  }
+}
+if (viewFull) {
+  viewFull.onclick = () => {
+    viewFull.lastElementChild.classList.remove("hidden");
+    viewLess.lastElementChild.classList.add("hidden");
+    const details = document.querySelectorAll(".cat-details");
+    details.forEach(element => {
+      element.classList.remove("hide-details")
+    });
+  }
 }
 
-viewFull.onclick = () => {
-  viewFull.lastElementChild.classList.remove("hidden");
-  viewLess.lastElementChild.classList.add("hidden");
-  const details = document.querySelectorAll(".cat-details");
-  details.forEach(element => {
-    element.classList.remove("hide-details")
-  });
-}
+stars.forEach((e, index) => {
+  e.addEventListener("click", (event) => {
+    event.preventDefault();
+    let checkboxes = document.querySelectorAll(".star input");
+    checkboxes.forEach((element, i) => {
+      stars[i].classList.add("fa-regular")
+      stars[i].classList.remove("fa-solid")
+      element.checked = false;
+    });
+    for (let i = 0; i <= index; i++) {
+      stars[i].classList.remove("fa-regular")
+      stars[i].classList.add("fa-solid")
+      checkboxes[i].checked = true;
+    }
+  })
+})
+

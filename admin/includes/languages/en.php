@@ -71,6 +71,16 @@
       "VIEWMODE" => "View Mode",
       "FULLVIEW" => "Full",
       "LESSVIEW" => "Less",
+      // ITEM
+      "ADDITEM" => "Add Item",
+      "ITEMNAME" => "Item Name",
+      "ITEMDESCRIPTION" => "Item Description",
+      "ITEMPRICE" => "Item Price",
+      "MADEIN" => "Made in",
+      "ITEMSTATUS" => "Item Status",
+      "New" => "New",
+      "LIKENEW" => "Like New",
+      "USED" => "Used",
 
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",

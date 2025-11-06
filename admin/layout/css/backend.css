@@ -51,7 +51,7 @@ a {
   color: #757575;
 }
 
-.form div i {
+.form div i:not(.fa-star) {
   position: absolute;
   font-size: 20px;
 }
@@ -62,11 +62,11 @@ a {
   transition: 0.3s ease-in-out;
 }
 
-.form div i:not(.eye) {
+.form div i:not(.eye, .fa-star) {
   margin-left: 10px;
   left: 0;
 }
-.form input {
+.form input:not([type="checkbox"]) {
   height: 45px;
   font-size: 16px;
 }
@@ -226,7 +226,7 @@ strong {
 /* end manage */
 
 /* start category */
-.form.add-cat .form-control {
+.form:not(.edit, .login) .form-control {
   padding-left: 12px;
 }
 .form div:has(span ~ label) {
@@ -234,7 +234,7 @@ strong {
   margin: 0;
   border-bottom: 2px solid #ccc;
 }
-.form.add-cat div:last-of-type {
+.form:not(.edit, .login) div:last-of-type {
   margin-bottom: 10px;
 }
 
@@ -249,14 +249,14 @@ strong {
   font-weight: bold;
 }
 
-.form.add-cat div > label.feild {
+.form:not(.edit, .login) div > label.feild {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
 }
 
-.form.add-cat div > label:has(input[type="radio"]) {
+.form:not(.edit, .login) div > label:has(input[type="radio"]) {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -394,3 +394,24 @@ strong {
 
 /* end category */
 
+/* start item */
+.star i {
+  cursor: pointer;
+}
+
+.star input {
+  width: 0;
+}
+
+.star input:checked ~ i {
+  color: gold;
+}
+
+label.feild.status {
+  flex-direction: row !important;
+}
+
+.feild.status select {
+  margin-left: 10px;
+}
+/* end item */
