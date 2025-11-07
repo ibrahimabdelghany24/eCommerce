@@ -27,11 +27,13 @@
     <h2><?php echo lang("ADMINLOGIN") ?></h2>
     <div>
       <i class="fa-solid fa-user user"></i>
-      <input class="form-control" type="text" name="username" placeholder="Username" data-text="Username" autocomplete="off">
+      <input class="form-control" type="text" name="username"
+        placeholder="Username" data-text="Username" autocomplete="off">
     </div>
     <div>
       <i class="fa-solid fa-key key"></i>
-      <input class="form-control" type="password" name="password" placeholder="Password" data-text="Password" autocomplete="off" >
+      <input class="form-control" type="password" name="password"
+        placeholder="Password" data-text="Password" autocomplete="off" >
       <i class="fa-solid fa-eye-slash eye"></i>
     </div> 
     <input class="btn btn-primary btn-block" type="submit" name="submit" value="Login" >

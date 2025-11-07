@@ -226,7 +226,7 @@ strong {
 /* end manage */
 
 /* start category */
-.form:not(.edit, .login) .form-control {
+.form:not(.edit, .login, .Add) .form-control {
   padding-left: 12px;
 }
 .form div:has(span ~ label) {
@@ -234,7 +234,7 @@ strong {
   margin: 0;
   border-bottom: 2px solid #ccc;
 }
-.form:not(.edit, .login) div:last-of-type {
+.form:not(.edit, .login, .Add) div:last-of-type {
   margin-bottom: 10px;
 }
 

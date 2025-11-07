@@ -77,10 +77,16 @@
       "ITEMDESCRIPTION" => "Item Description",
       "ITEMPRICE" => "Item Price",
       "MADEIN" => "Made in",
-      "ITEMSTATUS" => "Item Status",
+      "ITEMSTATUS" => "Item Status: ",
+      "ITEMOWNER" => "Item Owner: ",
+      "ITEMCAT" => "Item Category: ",
       "New" => "New",
       "LIKENEW" => "Like New",
       "USED" => "Used",
+      "INSERTITEM" => "Insert Item",
+      "ITEMADDED" => "Item Added",
+      "NOITEMADDED" => "No Item Added",
+      "ITEMNAMEEMPTY" => "Item name can't be <strong>empty</strong>",
 
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",
