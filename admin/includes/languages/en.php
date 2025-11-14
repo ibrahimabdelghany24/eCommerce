@@ -28,7 +28,7 @@
       "ACTIVATE"     => "Activate",
       "PASSWORD"     => "Password",
       "NEWPASSWORD"     => "New Password",
-      "NEW"          => "New",
+      "NEWUSER"          => "New User",
       "SAVE"         => "Save",
       "MANAGEUSERS"  => "Manage Members",
       "EDITUSER"     => "Edit Member",
@@ -54,7 +54,7 @@
       "INSERTCAT"       => "Insert Category",
       "UPDATECAT"       => "Update Category",
       "MANAGECAT"       => "Manage Categories",
-      "DELETECAT"       => "Delete Categories",
+      "DELETECAT"       => "Delete Category",
       "VISIBLE"         => "Visible",
       "COMALLOWED"      => "Comments Allowed",
       "ADSALLOWED"      => "Ads Allowed",
@@ -72,10 +72,16 @@
       "FULLVIEW" => "Full",
       "LESSVIEW" => "Less",
       // ITEM
+
+      "MANAGEITEMS" => "Manage Items",
       "ADDITEM" => "Add Item",
+      "EDITITEM" => "Edit Item",
+      "EDITITEM" => "Edit Item",
       "ITEMNAME" => "Item Name",
       "ITEMDESCRIPTION" => "Item Description",
       "ITEMPRICE" => "Item Price",
+      "ADDDATE" => "Add Date",
+      "CATEGORY" => "Category",
       "MADEIN" => "Made in",
       "ITEMSTATUS" => "Item Status: ",
       "ITEMOWNER" => "Item Owner: ",
@@ -87,6 +93,9 @@
       "ITEMADDED" => "Item Added",
       "NOITEMADDED" => "No Item Added",
       "ITEMNAMEEMPTY" => "Item name can't be <strong>empty</strong>",
+      "SELECTUSER" => "Select User",
+      "SELECTCAT" => "Select Category",
+      "SELECTSTATUS" => "Select Status",
 
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",
@@ -117,6 +126,7 @@
       "NOCATDELETED"        => "No Category Deleted",
       "NOCATADDED"        => "No Category Added",
       "NOCAT"        => "No Such Category",
+      "NOITEM"        => "No Such Item",
       "CATUPDATED"        => "Category Updated",
       "NOCATUPDATED"        => "No Category Updated",
     );

@@ -5,71 +5,131 @@
   if (isset($_SESSION["userid"])) {
     include("init.php");
     $action = (isset($_GET["action"])) ? $_GET["action"] : "manage";
-    if ($action == "manage") {
-      echo "<h1 class='text-center'>Item Page" . "</h1>";
-      echo "<a href='?action=add'>add item</a>";
+    if ($action == "manage") { // manage page
+      $stmt = $con->prepare(
+      " SELECT 
+          items.* , 
+          categories.name AS cat_name,
+          users.username
+        FROM 
+          items
+        INNER JOIN
+          categories ON categories.id = items.cat_id
+        INNER JOIN 
+          users ON users.userid = items.user_id");
+      $stmt->execute();
+      $items = $stmt->fetchAll();
+      ?>
+      <h1 class="text-center"><?=lang("MANAGEITEMS") ?></h1>
+      <div class="container">
+        <div class="table-responsive">
+          <table class="table text-center main-table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th><?=lang("ID")?></th>
+                <th><?=lang("ITEMNAME")?></th>
+                <th><?=lang("ITEMDESCRIPTION")?></th>
+                <th><?=lang("ITEMPRICE")?></th>
+                <th><?=lang("ADDDATE")?></th>
+                <th><?=lang("CATEGORY")?></th>
+                <th><?=lang("USERNAME")?></th>
+                <th><?=lang("CONTROL")?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              foreach($items as $item):
+                echo "<tr class='active'>";
+                echo "<td>" . $item["id"] ."</td>";
+                echo "<td>" . $item["name"] ."</td>";
+                echo "<td>" . $item["description"] ."</td>";
+                echo "<td>" . $item["price"] ."</td>";
+                echo "<td>" . $item["add_date"] ."</td>";
+                echo "<td>" . $item["cat_name"] ."</td>";
+                echo "<td>" . $item["username"] ."</td>";
+                echo "<td>
+                <a href='?action=edit&item_id={$item["id"]}' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i>". lang("EDIT") . "</a>
+                <form method='POST' action='?action=delete' style='display:inline;'>
+                <input type='hidden' name='userid' value='{$item["id"]}'>
+                <button type='submit' class='btn btn-danger confirm'>
+                <i class='fa-solid fa-trash'></i> ". lang("DELETE") ."
+                </button>
+                </form>";
+                echo "</td>";
+                echo "<tr>";
+              endforeach;
+              ?>
+            </tbody>
+          </table>
+        </div>
+        <a href="?action=add" class="btn btn-primary">
+          <i class="fa fa-plus"></i><?=lang("ADDITEM")?>
+        </a>
+      </div>
+    <?php
+    // end manage
     }elseif ($action == "add") { // add page?>
-      <h1 class="text-center"><?php echo lang("ADDITEM") ?></h1>
+      <h1 class="text-center"><?=lang("ADDITEM") ?></h1>
       <div class="container">
         <form class="add-item form" action="?action=insert" method="POST">
           <div>
             <label class="feild">
-              <span><?php echo lang("ITEMNAME")?></span>
+              <span><?=lang("ITEMNAME")?></span>
               <input 
                 class="form-control" 
                 type="text" 
                 name="name" 
-                placeholder="<?php echo lang("ITEMNAME")?>"
-                data-text="<?php echo lang("ITEMNAME")?>" 
+                placeholder="<?=lang("ITEMNAME")?>"
+                data-text="<?=lang("ITEMNAME")?>" 
                 >
             </label>
           </div>
           <div>
             <label class="feild">
-              <span><?php echo lang("ITEMDESCRIPTION")?></span>
+              <span><?=lang("ITEMDESCRIPTION")?></span>
               <input 
                 class="form-control" 
                 type="text" name="description" 
-                placeholder="<?php echo lang("ITEMDESCRIPTION")?>" 
-                data-text="<?php echo lang("ITEMDESCRIPTION")?>">
+                placeholder="<?=lang("ITEMDESCRIPTION")?>" 
+                data-text="<?=lang("ITEMDESCRIPTION")?>">
             </label>
           </div>
           <div>
             <label class="feild">
-              <span><?php echo lang("ITEMPRICE")?></span>
+              <span><?=lang("ITEMPRICE")?></span>
               <input 
                 class="form-control" 
                 type="text" name="price" 
-                placeholder="<?php echo lang("ITEMPRICE")?>" 
-                data-text="<?php echo lang("ITEMPRICE")?>">
+                placeholder="<?=lang("ITEMPRICE")?>" 
+                data-text="<?=lang("ITEMPRICE")?>">
             </label>
           </div>
           <div>
             <label class="feild">
-              <span><?php echo lang("MADEIN")?></span>
+              <span><?=lang("MADEIN")?></span>
               <input 
                 class="form-control" 
                 type="text" name="madein" 
-                placeholder="<?php echo lang("MADEIN")?>" 
-                data-text="<?php echo lang("MADEIN")?>">
+                placeholder="<?=lang("MADEIN")?>" 
+                data-text="<?=lang("MADEIN")?>">
             </label>
           </div>
           <div>
             <label class="feild status">
-              <span><?php echo lang("ITEMSTATUS")?></span>
+              <span><?=lang("ITEMSTATUS")?></span>
               <select name="status">
-                <option value="" selected disabled>Select Status</option>
-                <option value="1"><?php echo lang("NEW") ?></option>
-                <option value="2"><?php echo lang("LIKENEW") ?></option>
-                <option value="3"><?php echo lang("USED") ?></option>
+                <option value="" selected disabled><?=lang("SELECTSTATUS")?></option>
+                <option value="1"><?=lang("NEW") ?></option>
+                <option value="2"><?=lang("LIKENEW") ?></option>
+                <option value="3"><?=lang("USED") ?></option>
               </select>
             </label>
           </div>
           <div>
             <label class="feild status">
-              <span><?php echo lang("ITEMOWNER")?></span>
+              <span><?=lang("ITEMOWNER")?></span>
               <select name="owner">
-                <option value="" selected disabled>Select User</option>
+                <option value="" selected disabled><?=lang("SELECTUSER")?></option>
                 <?php
                   $stmt = $con->prepare("SELECT userid, username FROM users");
                   $stmt->execute();
@@ -85,7 +145,7 @@
             <label class="feild status">
               <span><?php echo lang("ITEMCAT")?></span>
               <select name="cat">
-                <option value="" selected disabled>Select Category</option>
+                <option value="" selected disabled><?=lang("SELECTCAT")?></option>
                 <?php
                   $stmt = $con->prepare("SELECT id, name FROM categories");
                   $stmt->execute();
@@ -99,12 +159,12 @@
           </div>
           <input class="btn btn-primary btn-block"
           type="submit" name="submit" 
-          value="<?php echo lang("ADDITEM")?>">
+          value="<?=lang("ADDITEM")?>">
         </form>
       </div>
       <?php
     // end add
-    }elseif ($action == "insert") {
+    }elseif ($action == "insert") { // insert page
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<h1 class='text-center'>" . lang("INSERTITEM") . "</h1>";
         $name = $_POST["name"];
@@ -145,7 +205,7 @@
           $stmt->execute([$name, $description, $price, $made_in, $status, $cat, $owner]);
           $rows = $stmt->rowCount();
           if ($rows):
-            redirect_home([lang("ITEMADDED")], "back", "success");
+            redirect_home([lang("ITEMADDED")], "items.php", "success");
           else:
             redirect_home([lang("NOITEMADDED")], "back", "danger");
           endif;
@@ -153,8 +213,117 @@
       }else {
         redirect_home([lang("CANTBROWSE")], "back", "danger");
       }
-    }elseif ($action == "edit") {
-      
+    // end insert
+    }elseif ($action == "edit") { // edit page
+      $item_id = (isset($_GET["item_id"]) && is_numeric($_GET["item_id"])) ? intval($_GET["item_id"]): 0;
+      if (is_exist("id", "items", $item_id)) {
+        $stmt = $con->prepare("SELECT * from items WHERE id = ?");
+        $stmt->execute([$item_id]);
+        $item = $stmt->fetch();
+        $count = $stmt->rowCount();?>
+        <h1 class="text-center"><?=lang("EDITITEM") ?></h1>
+        <div class="container">
+          <form class="add-item form" action="?action=update" method="POST">
+            <input class="hidden" type="text" name="id" value=<?=$item["id"]?>>
+            <div>
+              <label class="feild">
+                <span><?=lang("ITEMNAME")?></span>
+                <input 
+                  class="form-control" 
+                  type="text" 
+                  name="name" 
+                  value="<?=$item["name"]?>"
+                  placeholder="<?=lang("ITEMNAME")?>"
+                  data-text="<?=lang("ITEMNAME")?>" 
+                  >
+              </label>
+            </div>
+            <div>
+              <label class="feild">
+                <span><?=lang("ITEMDESCRIPTION")?></span>
+                <input 
+                  class="form-control" 
+                  type="text" name="description"
+                  value="<?=$item["description"]?>"
+                  placeholder="<?=lang("ITEMDESCRIPTION")?>" 
+                  data-text="<?=lang("ITEMDESCRIPTION")?>">
+              </label>
+            </div>
+            <div>
+              <label class="feild">
+                <span><?=lang("ITEMPRICE")?></span>
+                <input 
+                  class="form-control" 
+                  type="text" name="price" 
+                  value="<?=$item["price"]?>"
+                  placeholder="<?=lang("ITEMPRICE")?>" 
+                  data-text="<?=lang("ITEMPRICE")?>">
+              </label>
+            </div>
+            <div>
+              <label class="feild">
+                <span><?=lang("MADEIN")?></span>
+                <input 
+                  class="form-control" 
+                  type="text" name="madein"
+                  value="<?=$item["made_in"]?>" 
+                  placeholder="<?=lang("MADEIN")?>" 
+                  data-text="<?=lang("MADEIN")?>">
+              </label>
+            </div>
+            <div>
+              <label class="feild status">
+                <span><?=lang("ITEMSTATUS")?></span>
+                <select name="status">
+                  <option value="" disabled><?=lang("SELECTSTATUS")?></option>
+                  <option value="1" <?=($item["status"] == 1) ? "selected" : "";?>><?=lang("NEW") ?></option>
+                  <option value="2" <?=($item["status"] == 2) ? "selected" : "";?>><?=lang("LIKENEW") ?></option>
+                  <option value="3" <?=($item["status"] == 3) ? "selected" : "";?>><?=lang("USED") ?></option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="feild status">
+                <span><?=lang("ITEMOWNER")?></span>
+                <select name="owner">
+                  <option value="" disabled><?=lang("SELECTUSER")?></option>
+                  <?php
+                    $stmt = $con->prepare("SELECT userid, username FROM users");
+                    $stmt->execute();
+                    $users = $stmt->fetchAll();
+                    foreach($users as $user):
+                      echo "<option value='{$user["userid"]}'" . (($user["userid"] == $item["user_id"]) ? "selected" : "") .">{$user["username"]}</option>";
+                    endforeach;
+                  ?>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="feild status">
+                <span><?=lang("ITEMCAT")?></span>
+                <select name="cat">
+                  <option value="" disabled><?=lang("SELECTCAT")?></option>
+                  <?php
+                    $stmt = $con->prepare("SELECT id, name FROM categories");
+                    $stmt->execute();
+                    $cats = $stmt->fetchAll();
+                    foreach($cats as $cat):
+                      echo "<option value='{$cat["id"]}'" . (($cat["id"] == $item["cat_id"])? "selected": "") . ">{$cat["name"]}</option>";
+                    endforeach;
+                  ?>
+                </select>
+              </label>
+            </div>
+            <input class="btn btn-primary btn-block"
+            type="submit" name="submit" 
+            value="<?=lang("EDITITEM")?>">
+          </form>
+        </div>
+        <?php
+      }else {
+        redirect_home([lang("NOITEM")], "items.php", "danger");
+      }
+    // end edit
     }elseif ($action == "update") {
       
     }elseif ($action == "delete") {

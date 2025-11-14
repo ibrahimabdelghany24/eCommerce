@@ -10,26 +10,28 @@
       $stmt = $con->prepare("SELECT * FROM categories ORDER BY id $sort");
       $stmt->execute();
       $cats = $stmt->fetchAll();?>
-      <h1 class='text-center'><?php echo lang("MANAGECAT") ?></h1>
+      <h1 class='text-center'><?=lang("MANAGECAT") ?></h1>
       <div class="container categories">
         <div class="panel panel-default">
           <div class="panel-heading">
             <div>
-            <?php echo lang("CATEGORIES")?>
+            <i class="fa-solid fa-pen-to-square"></i><?=lang("MANAGECAT")?>
             </div>
             <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <?php echo lang("FILTER") ?>
+              <button class="btn btn-default dropdown-toggle" 
+              type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+              aria-haspopup="true" aria-expanded="false">
+                <?=lang("FILTER") ?>
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <li class="dropdown-header"><?php echo lang("SORTBY") ?></li>
-                <li><a href="?sort=ASC"><?php echo lang("SORTASC") ?><?php if ($sort == "ASC") echo '<i class="fa fa-check pull-right"></i>'?></a></li>
-                <li><a href="?sort=DESC"><?php echo lang("SORTDESC") ?><?php if ($sort == "DESC") echo '<i class="fa fa-check pull-right"></i>'?></a></li>
+                <li class="dropdown-header"><?=lang("SORTBY") ?></li>
+                <li><a href="?sort=ASC"><?=lang("SORTASC") . (($sort == "ASC") ? '<i class="fa fa-check pull-right"></i>': null) ?></a></li>
+                <li><a href="?sort=DESC"><?=lang("SORTDESC") . (($sort == "DESC") ? '<i class="fa fa-check pull-right"></i>': null) ?></a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header"><?php echo lang("VIEWMODE") ?></li>
-                <li><a class="v-full"><?php echo lang("FULLVIEW") ?><i class="fa fa-check pull-right"></i></a></li>
-                <li><a class="v-less"><?php echo lang("LESSVIEW") ?><i class="fa fa-check pull-right hidden"></i></a></li>
+                <li class="dropdown-header"><?=lang("VIEWMODE") ?></li>
+                <li><a class="v-full"><?=lang("FULLVIEW") ?><i class="fa fa-check pull-right"></i></a></li>
+                <li><a class="v-less"><?=lang("LESSVIEW") ?><i class="fa fa-check pull-right hidden"></i></a></li>
               </ul>
             </div>
           </div>
@@ -57,60 +59,77 @@
             ?>
           </div>
         </div>
-        <a class="btn btn-primary" href="?action=add"><i class="fa fa-plus"></i> <?php echo lang("ADDCAT") ?></a>
+        <a class="btn btn-primary" href="?action=add">
+          <i class="fa fa-plus"></i> <?=lang("ADDCAT") ?>
+        </a>
       </div>
     <?php
     // end manage
     }elseif ($action == "add") { // add page?>
-      <h1 class="text-center"><?php echo lang("ADDCAT") ?></h1>
+      <h1 class="text-center"><?=lang("ADDCAT") ?></h1>
       <div class="container">
         <form class="add-cat form" action="?action=insert" method="POST" autocomplete="off">
           <div>
             <label class="feild">
-              <span><?php echo lang("CATNAME")?></span>
-              <input class="form-control" type="text" name="name" placeholder="<?php echo lang("CATNAME")?>" data-text="<?php echo lang("CATNAME")?>" autocomplete="off" required>
+              <span><?=lang("CATNAME")?></span>
+              <input class="form-control" type="text" 
+              name="name" placeholder="<?=lang("CATNAME")?>" 
+              data-text="<?=lang("CATNAME")?>" 
+              autocomplete="off" required>
             </label>
           </div>
           <div> 
             <label class="feild">
-              <span><?php echo lang("CATDESCRIPTION")?></span>
-              <input class="form-control" type="text" name="description" placeholder="<?php echo lang("CATDESCRIPTION")?>" data-text="<?php echo lang("CATDESCRIPTION")?>" autocomplete="off">
+              <span><?=lang("CATDESCRIPTION")?></span>
+              <input class="form-control" type="text" 
+              name="description" placeholder="<?=lang("CATDESCRIPTION")?>" 
+              data-text="<?=lang("CATDESCRIPTION")?>" autocomplete="off">
             </label>
           </div>
           <div>
             <label class="feild">
-            <span><?php echo lang("CATORDERING")?></span>
-              <input class="form-control" type="text" name="ordering" placeholder="<?php echo lang("CATORDERING")?>" data-text="<?php echo lang("CATORDERING")?>" autocomplete="off">
+            <span><?=lang("CATORDERING")?></span>
+              <input class="form-control" type="text" 
+              name="ordering" placeholder="<?=lang("CATORDERING")?>"
+              data-text="<?=lang("CATORDERING")?>" 
+              autocomplete="off">
             </label>
           </div>
           <div>
-            <span><?php echo lang("VISIBLE") ?>: </span>
+            <span><?=lang("VISIBLE") ?>: </span>
             <label>
-              <input class="form-control" type="radio" name="visibility" value="1" checked> <?php echo lang("YES")?>
+              <input class="form-control" type="radio" 
+              name="visibility" value="1" checked> <?=lang("YES")?>
             </label>
             <label>
-              <input class="form-control" type="radio" name="visibility" value="0"> <?php echo lang("NO")?>
-            </label>
-          </div>
-          <div>
-            <span><?php echo lang("COMALLOWED") ?>: </span>
-            <label>
-              <input class="form-control" type="radio" name="allow_comment" value="1" checked> <?php echo lang("YES")?>
-            </label>
-            <label>
-              <input class="form-control" type="radio" name="allow_comment" value="0"> <?php echo lang("NO")?>
+              <input class="form-control" type="radio" 
+              name="visibility" value="0"> <?=lang("NO")?>
             </label>
           </div>
           <div>
-            <span><?php echo lang("ADSALLOWED") ?>: </span>
+            <span><?=lang("COMALLOWED") ?>: </span>
             <label>
-              <input class="form-control" type="radio" name="allow_ads" value="1" checked> <?php echo lang("YES")?>
+              <input class="form-control" type="radio" 
+              name="allow_comment" value="1" checked> <?=lang("YES")?>
             </label>
             <label>
-              <input class="form-control" type="radio" name="allow_ads" value="0"> <?php echo lang("NO")?>
+              <input class="form-control" type="radio" 
+              name="allow_comment" value="0"> <?=lang("NO")?>
             </label>
           </div>
-          <input class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang("ADDCAT")?>">
+          <div>
+            <span><?=lang("ADSALLOWED") ?>: </span>
+            <label>
+              <input class="form-control" type="radio" 
+              name="allow_ads" value="1" checked> <?=lang("YES")?>
+            </label>
+            <label>
+              <input class="form-control" type="radio" 
+              name="allow_ads" value="0"> <?=lang("NO")?>
+            </label>
+          </div>
+          <input class="btn btn-primary btn-block" type="submit" 
+          name="submit" value="<?=lang("ADDCAT")?>">
         </form>
       </div>
       <?php
@@ -130,19 +149,20 @@
         if (is_exist("name", "categories", $name)) {
           redirect_home([lang("CATEXIST")], "back", "danger");
         }else {
-          $stmt = $con->prepare("INSERT 
-          INTO categories(name, description, ordering, visibility, allow_comment, allow_ads)
-          VALUES(?, ?, ?, ?, ?, ?)");
+          $stmt = $con->prepare(
+          " INSERT 
+            INTO categories(name, description, ordering, visibility, allow_comment, allow_ads)
+            VALUES(?, ?, ?, ?, ?, ?)");
           $stmt->execute([$name, $description, $order, $visible, $allow_comment, $allow_ads]);
           $rows = $stmt->rowCount();
           if ($rows):
-            redirect_home([lang("CATADDED")], "back", "success");
+            redirect_home([lang("CATADDED")], "categories.php", "success", false);
           else:
             redirect_home([lang("NOCATADDED")], "back", "danger");
           endif;
         }
       }else {
-        redirect_home([lang("CANTBROWSE")], "back", "danger");
+        redirect_home([lang("CANTBROWSE")], "back", "danger", false);
       }
     //end insert
     }elseif ($action == "edit") {  // edit page
@@ -152,61 +172,90 @@
         $stmt->execute([$catid]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         ?>
-        <h1 class="text-center"><?php echo lang("EDITCAT") ?></h1>
+        <h1 class="text-center"><?=lang("EDITCAT") ?></h1>
         <div class="container">
           <form class="add-cat form" action="?action=update" method="POST" autocomplete="off">
             <div>
               <label class="feild">
-                <span><?php echo lang("CATNAME")?></span>
-                <input class="form-control" type="hidden" name="catid" value="<?php echo $row["id"] ?>" placeholder="<?php echo lang("CATNAME")?>" data-text="<?php echo lang("CATNAME")?>" autocomplete="off" required>
-                <input class="form-control" type="text" name="name" value="<?php echo $row["name"] ?>" placeholder="<?php echo lang("CATNAME")?>" data-text="<?php echo lang("CATNAME")?>" autocomplete="off" required>
+                <span><?=lang("CATNAME")?></span>
+                <input class="form-control" type="hidden" 
+                name="catid" value="<?=$row["id"] ?>" 
+                placeholder="<?=lang("CATNAME")?>" 
+                data-text="<?=lang("CATNAME")?>" 
+                autocomplete="off" required>
+                <input class="form-control" type="text" 
+                name="name" value="<?=$row["name"] ?>" 
+                placeholder="<?=lang("CATNAME")?>" 
+                data-text="<?=lang("CATNAME")?>" 
+                autocomplete="off" required>
               </label>
             </div>
             <div> 
               <label class="feild">
-                <span><?php echo lang("CATDESCRIPTION")?></span>
-                <input class="form-control" type="text" name="description" value="<?php echo $row["description"] ?>" placeholder="<?php echo lang("CATDESCRIPTION")?>" data-text="<?php echo lang("CATDESCRIPTION")?>" autocomplete="off">
+                <span><?=lang("CATDESCRIPTION")?></span>
+                <input class="form-control" type="text" 
+                name="description" value="<?=$row["description"] ?>" 
+                placeholder="<?=lang("CATDESCRIPTION")?>" 
+                data-text="<?=lang("CATDESCRIPTION")?>" 
+                autocomplete="off">
               </label>
             </div>
             <div>
               <label class="feild">
-              <span><?php echo lang("CATORDERING")?></span>
-                <input class="form-control" type="text" name="ordering" value="<?php echo $row["ordering"] ?>" placeholder="<?php echo lang("CATORDERING")?>" data-text="<?php echo lang("CATORDERING")?>" autocomplete="off">
+              <span><?=lang("CATORDERING")?></span>
+                <input class="form-control" type="text" 
+                name="ordering" value="<?=$row["ordering"] ?>" 
+                placeholder="<?=lang("CATORDERING")?>" 
+                data-text="<?=lang("CATORDERING")?>" 
+                autocomplete="off">
               </label>
             </div>
             <div>
-              <span><?php echo lang("VISIBLE")?>: </span>
+              <span><?=lang("VISIBLE")?>: </span>
               <label>
-                <input class="form-control" type="radio" name="visibility" value="1" <?php if ($row["visible"]) echo "checked";?> > <?php echo lang("YES")?>
+                <input class="form-control" type="radio" 
+                name="visibility" value="1" 
+                <?=(($row["visibility"])? "checked":null)?> > <?=lang("YES")?>
               </label>
               <label>
-                <input class="form-control" type="radio" name="visibility" value="0" <?php if (!$row["visible"]) echo "checked";?> > <?php echo lang("NO")?>
-              </label>
-            </div>
-            <div>
-              <span><?php echo lang("COMALLOWED")?>: </span>
-              <label>
-                <input class="form-control" type="radio" name="allow_comment" value="1" <?php if ($row["allow_comment"]) echo "checked";?>> <?php echo lang("YES")?>
-              </label>
-              <label>
-                <input class="form-control" type="radio" name="allow_comment" value="0" <?php if (!$row["allow_comment"]) echo "checked";?> > <?php echo lang("NO")?>
+                <input class="form-control" type="radio" 
+                name="visibility" value="0" 
+                <?=((!$row["visibility"])? "checked":null)?> > <?=lang("NO")?>
               </label>
             </div>
             <div>
-              <span><?php echo lang("ADSALLOWED")?>: </span>
+              <span><?=lang("COMALLOWED")?>: </span>
               <label>
-                <input class="form-control" type="radio" name="allow_ads" value="1" <?php if ($row["allow_ads"]) echo "checked";?> > <?php echo lang("YES")?>
+                <input class="form-control" type="radio" 
+                name="allow_comment" value="1" 
+                <?=(($row["allow_comment"])? "checked":null)?>> <?=lang("YES")?>
               </label>
               <label>
-                <input class="form-control" type="radio" name="allow_ads" value="0" <?php if (!$row["allow_ads"]) echo "checked";?> > <?php echo lang("NO")?>
+                <input class="form-control" type="radio" 
+                name="allow_comment" value="0" 
+                <?=((!$row["allow_comment"])? "checked":null)?> > <?=lang("NO")?>
               </label>
             </div>
-            <input class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang("UPDATECAT")?>">
+            <div>
+              <span><?=lang("ADSALLOWED")?>: </span>
+              <label>
+                <input class="form-control" type="radio" 
+                name="allow_ads" value="1" 
+                <?=(($row["allow_ads"])? "checked":null)?> > <?=lang("YES")?>
+              </label>
+              <label>
+                <input class="form-control" type="radio" 
+                name="allow_ads" value="0" 
+                <?=((!$row["allow_ads"])? "checked":null)?> > <?=lang("NO")?>
+              </label>
+            </div>
+            <input class="btn btn-primary btn-block" type="submit" 
+            name="submit" value="<?=lang("UPDATECAT")?>">
           </form>
         </div>
       <?php
       }else {
-        redirect_home([lang("NOCAT")], "back", "danger");
+        redirect_home([lang("NOCAT")], "back", "danger", false);
       }
     // end edit
     }elseif ($action == "update") { // update page
@@ -244,7 +293,6 @@
       if (is_exist("id", "categories", $catid)) {
         $stmt = $con->prepare("DELETE FROM categories WHERE id = ? LIMIT 1");
         $stmt->execute([$catid]);
-        $row = $stmt->rowCount();
         $msg = [lang("CATDELETED")];
         redirect_home($msg, "back", "success");
       }else {

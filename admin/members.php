@@ -11,18 +11,18 @@ if (isset($_SESSION["username"])) {
     $stmt->execute();
     $rows = $stmt->fetchAll();
     ?>
-    <h1 class="text-center"><?php echo lang("MANAGEUSERS") ?></h1>
+    <h1 class="text-center"><?=lang("MANAGEUSERS") ?></h1>
     <div class="container">
       <div class="table-responsive">
         <table class="table text-center main-table table-hover table-bordered">
           <thead>
             <tr>
-              <th><?php echo lang("ID")?></th>
-              <th><?php echo lang("USERNAME")?></th>
-              <th><?php echo lang("EMAIL")?></th>
-              <th><?php echo lang("FULLNAME")?></th>
-              <th><?php echo lang("REGISTERDATE")?></th>
-              <th><?php echo lang("CONTROL")?></th>
+              <th><?=lang("ID")?></th>
+              <th><?=lang("USERNAME")?></th>
+              <th><?=lang("EMAIL")?></th>
+              <th><?=lang("FULLNAME")?></th>
+              <th><?=lang("REGISTERDATE")?></th>
+              <th><?=lang("CONTROL")?></th>
             </tr>
           </thead>
           <tbody>
@@ -52,7 +52,7 @@ if (isset($_SESSION["username"])) {
           </tbody>
         </table>
       </div>
-      <a href="?action=add" class="btn btn-primary"> <i class="fa fa-plus"></i><?php echo " " . lang("NEW") . " " . lang("USER") ?></a>
+      <a href="?action=add" class="btn btn-primary"> <i class="fa fa-plus"></i><?=lang("NEWUSER")?></a>
     </div>
   <?php
   // manage end
@@ -62,33 +62,56 @@ if (isset($_SESSION["username"])) {
     $stmt->execute([$userid]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($row) { ?>
-      <h1 class="text-center"><?php echo lang("EDITUSER") ?></h1>
+      <h1 class="text-center"><?=lang("EDITUSER") ?></h1>
       <div class="container">
         <form class="edit form" action="?action=update" method="POST" autocomplete="off">
-          <input type="hidden" name="userid" value=<?php echo $row["userid"] ?> autocomplete="off">
+          <input type="hidden"
+          name="userid" 
+          value=<?= $row["userid"] ?> 
+          autocomplete="off">
           <div>
             <i class="fa-solid fa-user user"></i>
-            <input class="form-control" type="text" name="username" value="<?php echo $row["username"] ?>" placeholder="<?php echo lang("USERNAME") ?>" data-text="<?php echo lang("USERNAME") ?>" autocomplete="off" required>
+            <input class="form-control" 
+            type="text" name="username" 
+            value="<?=$row["username"] ?>"
+            placeholder="<?=lang("USERNAME") ?>"
+            data-text="<?=lang("USERNAME") ?>"
+            autocomplete="off" required>
           </div>
           <div>
             <i class="fa-solid fa-key key"></i>
-            <input class="form-control" type="password" name="password" placeholder="<?php echo lang("NEWPASSWORD")?>"  data-text="<?php echo lang("NEWPASSWORD")?>" autocomplete="new-password">
+            <input class="form-control" 
+            type="password" name="password"
+            placeholder="<?=lang("NEWPASSWORD")?>"
+            data-text="<?=lang("NEWPASSWORD")?>" 
+            autocomplete="new-password">
           </div>
           <div>
             <i class="fa-solid fa-at"></i>
-            <input class="form-control" type="email" name="email" value="<?php echo $row["email"] ?>" placeholder="<?php echo lang("EMAIL")?>" data-text="<?php echo lang("EMAIL")?>" autocomplete="off" required>
+            <input class="form-control" 
+            type="email" name="email" 
+            value="<?=$row["email"] ?>" 
+            placeholder="<?=lang("EMAIL")?>" 
+            data-text="<?=lang("EMAIL")?>" 
+            autocomplete="off" required>
           </div>
           <div>
             <i class="fa-solid fa-id-card"></i>
-            <input class="form-control" type="text" name="fullname" value="<?php echo $row["fullname"] ?>" placeholder="<?php echo lang("FULLNAME") ?>" data-text="<?php echo lang("FULLNAME") ?>" autocomplete="off" required>
+            <input class="form-control" 
+            type="text" name="fullname" 
+            value="<?=$row["fullname"] ?>" 
+            placeholder="<?=lang("FULLNAME") ?>" 
+            data-text="<?=lang("FULLNAME") ?>" 
+            autocomplete="off" required>
           </div>
-          <input class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang("SAVE") ?>">
+          <input class="btn btn-primary btn-block" 
+          type="submit" name="submit" value="<?=lang("SAVE") ?>">
         </form>
       </div>
     <?php
     } else {
-          redirect_home([lang("NOID")], "back", "danger");
-        }
+        redirect_home([lang("NOID")], "back", "danger", false);
+      }
   // edit end
   } elseif ($action == "update") { // update page
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -119,52 +142,67 @@ if (isset($_SESSION["username"])) {
       }
       if (empty($errors)) :
         if (empty($password)) {
-          $stmt = $con->prepare("UPDATE users
-                                    SET
-                                    username = ?, email = ?, fullname = ?
-                                    WHERE 
-                                    userid = ?");
+          $stmt = $con->prepare(
+            " UPDATE users
+              SET
+                username = ?, email = ?, fullname = ?
+              WHERE 
+                userid = ?");
           $stmt->execute([$username, $email, $name, $userid]);
         } else {
           $hashed = password_hash($password, PASSWORD_DEFAULT);
-          $stmt = $con->prepare("UPDATE users
-                                  SET 
-                                  username = ?, email = ?, fullname = ?, password = ?
-                                  WHERE
-                                  userid = ?");
+          $stmt = $con->prepare(
+          " UPDATE users
+            SET 
+              username = ?, email = ?, fullname = ?, password = ?
+            WHERE
+              userid = ?");
           $stmt->execute([$username, $email, $name, $hashed, $userid]);
         }
       else:
         redirect_home($errors, "back", "danger");
       endif;
-      $msg = [$stmt->rowCount() . " " . lang("USERUPDATED")];
+      $msg = [lang("USERUPDATED")];
       redirect_home($msg, "back", "success");
     } else {
-      redirect_home([lang("CANTBROWSE")], "back", "danger");
+      redirect_home([lang("CANTBROWSE")], "back", "danger", false);
     }
   // update end
   }elseif ($action == "add") { // add page?>
-      <h1 class="text-center"><?php echo lang("ADDUSER") ?></h1>
+      <h1 class="text-center"><?=lang("ADDUSER") ?></h1>
       <div class="container">
         <form class="Add form" action="?action=insert" method="POST" autocomplete="off">
           <div>
             <i class="fa-solid fa-user user"></i>
-            <input class="form-control" type="text" name="username" placeholder="<?php echo lang("USERNAME")?>" data-text="<?php echo lang("USERNAME")?>" autocomplete="off" required>
+            <input class="form-control" type="text" 
+            name="username" placeholder="<?=lang("USERNAME")?>"
+            data-text="<?=lang("USERNAME")?>" 
+            autocomplete="off" required>
           </div>
           <div>
             <i class="fa-solid fa-key key"></i>
-            <input class="form-control" type="password" name="password" placeholder="<?php echo lang("PASSWORD")?>" data-text="<?php echo lang("PASSWORD")?>" autocomplete="new-password" required>
+            <input class="form-control" type="password" 
+            name="password" placeholder="<?=lang("PASSWORD")?>" 
+            data-text="<?=lang("PASSWORD")?>" 
+            autocomplete="new-password" required>
             <i class="fa-solid fa-eye-slash eye"></i>
           </div>
           <div>
             <i class="fa-solid fa-at"></i>
-            <input class="form-control" type="email" name="email" placeholder="<?php echo lang("EMAIL")?>" data-text="<?php echo lang("EMAIL")?>" autocomplete="off" required>
+            <input class="form-control" type="email" 
+            name="email" placeholder="<?=lang("EMAIL")?>" 
+            data-text="<?=lang("EMAIL")?>" 
+            autocomplete="off" required>
           </div>
           <div>
             <i class="fa-solid fa-id-card"></i>
-            <input class="form-control" type="text" name="fullname" placeholder="<?php echo lang("FULLNAME")?>" data-text="<?php echo lang("FULLNAME")?>" autocomplete="off" required>
+            <input class="form-control" type="text" 
+            name="fullname" placeholder="<?=lang("FULLNAME")?>" 
+            data-text="<?=lang("FULLNAME")?>" 
+            autocomplete="off" required>
           </div>
-          <input class="btn btn-primary btn-block" type="submit" name="submit" value="<?php echo lang("ADDUSER")?>">
+          <input class="btn btn-primary btn-block" type="submit" 
+          name="submit" value="<?=lang("ADDUSER")?>">
         </form>
       </div>
       <?php
@@ -198,12 +236,13 @@ if (isset($_SESSION["username"])) {
       if (empty($errors)) :
         if (!is_exist("username", "users", $username)):
           $hashed = password_hash($password, PASSWORD_DEFAULT);
-          $stmt = $con->prepare("INSERT INTO 
-                                  users(username, password, email, fullname, reg_status, date)
-                                  VALUES(?, ?, ?, ?, 1, now())");
+          $stmt = $con->prepare(
+          " INSERT INTO 
+              users(username, password, email, fullname, reg_status, date)
+            VALUES(?, ?, ?, ?, 1, now())");
           $stmt->execute([$username, $hashed, $email, $name]);
-          $msg = [$stmt->rowCount() . " " . lang("USERADDED")];
-          redirect_home($msg, "back", "success");
+          $msg = [lang("USERADDED")];
+          redirect_home($msg, "members.php", "success");
         else:
           $msg = [lang("USEREXIST"), lang("NOUSERADDED")];
           redirect_home($msg, "back", "danger");
@@ -212,7 +251,7 @@ if (isset($_SESSION["username"])) {
         redirect_home($errors, "back", "danger");
       endif;
     } else {
-      redirect_home([lang("CANTBROWSE")], "back", "danger");
+      redirect_home([lang("CANTBROWSE")], "back", "danger", false);
     }
   // end insert
   }elseif ($action == "delete") { // delete page
@@ -224,11 +263,11 @@ if (isset($_SESSION["username"])) {
         $stmt = $con->prepare("DELETE FROM users WHERE userid = ? LIMIT 1");
         $stmt->execute([$userid]);
         $row = $stmt->rowCount();
-        $msg = [$row . " " . lang("USERDELETED")];
+        $msg = [lang("USERDELETED")];
         redirect_home($msg, "back", "success");
       else:
         $msg = lang("NOID");
-        redirect_home($msg, "back", "danger");
+        redirect_home($msg, "back", "danger", false);
       endif;
     else:
       redirect_home([lang("CANTBROWSE")], "back", "danger", false);
@@ -241,7 +280,7 @@ if (isset($_SESSION["username"])) {
       $stmt = $con->prepare("UPDATE users SET reg_status = ? WHERE userid = ?");
       $stmt->execute([1, $userid]);
       $row = $stmt->rowCount();
-      $msg = [$row . " " . lang("USERACTIVATED")];
+      $msg = [lang("USERACTIVATED")];
       redirect_home($msg, "back", "success");
     else:
       $msg = lang("NOID");

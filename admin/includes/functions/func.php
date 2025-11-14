@@ -28,7 +28,7 @@
       echo "<h2 class='alert-heading'>{$title}". lang("MESSAGE") ."</h2>";
       echo "<hr>";
       foreach ($msg as $p):
-      echo "<p style='font-size:20px'>$p</p><hr>";
+      echo "<p style='font-size:20px' class='p-message'>$p</p><hr>";
       endforeach;
       if ($btn) {
         echo "<a class='btn btn-primary' href='$url'>". lang("GOBACK") ."</a>";
