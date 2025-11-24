@@ -33,7 +33,7 @@
       if ($btn) {
         echo "<a class='btn btn-primary' href='$url'>". lang("GOBACK") ."</a>";
       }else {
-        echo "<p style='font-size:20px'>". lang("REDIRECT") . $time . "</p><hr>";
+        echo "<p style='font-size:20px; border:none;'>". lang("REDIRECT") . $time . " secondes</p>";
         header("refresh: $time; url=$url");
         exit();
       }

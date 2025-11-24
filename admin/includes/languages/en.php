@@ -76,7 +76,7 @@
       "MANAGEITEMS" => "Manage Items",
       "ADDITEM" => "Add Item",
       "EDITITEM" => "Edit Item",
-      "EDITITEM" => "Edit Item",
+      "UPDATEITEM" => "Update Item",
       "ITEMNAME" => "Item Name",
       "ITEMDESCRIPTION" => "Item Description",
       "ITEMPRICE" => "Item Price",
@@ -86,7 +86,7 @@
       "ITEMSTATUS" => "Item Status: ",
       "ITEMOWNER" => "Item Owner: ",
       "ITEMCAT" => "Item Category: ",
-      "New" => "New",
+      "NEW" => "New",
       "LIKENEW" => "Like New",
       "USED" => "Used",
       "INSERTITEM" => "Insert Item",
@@ -96,7 +96,7 @@
       "SELECTUSER" => "Select User",
       "SELECTCAT" => "Select Category",
       "SELECTSTATUS" => "Select Status",
-
+      
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",
       "NOID"          => "There is no such ID",
@@ -129,6 +129,15 @@
       "NOITEM"        => "No Such Item",
       "CATUPDATED"        => "Category Updated",
       "NOCATUPDATED"        => "No Category Updated",
+      "ITEMUPDATED" => "Item Updated",
+      "NOITEMUPDATED" => "No Item Updated",
+      "ITEMNAMEEMPTY" => "Item name can't be <strong>empty</strong>",
+      "ITEMDESCEMPTY" => "Item description can't be <strong>empty</strong>",
+      "ITEMPRICEEMPTY" => "Item price can't be <strong>empty</strong>",
+      "ITECOUNTRYEMPTY" => "Item country can't be <strong>empty</strong>",
+      "MUSTSTATUS" => "Must Choose Status",
+      "MUSTCAT" => "Must Choose Category",
+      "MUSTOWNER" => "Must Choose The Owner",
     );
     return $lang[$phrase];
   }

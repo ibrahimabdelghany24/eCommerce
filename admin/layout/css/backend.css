@@ -9,10 +9,6 @@ body {
   background-color: #f4f4f4
 }
 
-.p-message:last-of-type {
-  border: none;
-}
-
 label {
   margin-bottom: 0;
 }

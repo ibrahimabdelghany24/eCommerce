@@ -176,25 +176,25 @@
         $cat = $_POST["cat"];
         $errors = [];
         if (empty($name)) {
-          $errors[] = "Item name can't be <strong>empty</strong>";
+          $errors[] = lang("ITEMNAMEEMPTY");
         }
         if (empty($description)) {
-          $errors[] = "Item description can't be <strong>empty</strong>";
+          $errors[] = lang("ITEMDESCEMPTY");
         }
         if (empty($price)) {
-          $errors[] = "Item price can't be <strong>empty</strong>";
+          $errors[] = lang("ITEMPRICEEMPTY");
         }
         if (empty($made_in)) {
-          $errors[] = "Country of made can't be <strong>empty</strong>";
+          $errors[] = lang("ITECOUNTRYEMPTY");
         }
         if (empty($status)) {
-          $errors[] = "Must Choose status";
+          $errors[] = lang("MUSTSTATUS");
         }
         if (empty($owner)) {
-          $errors[] = "Must Choose the owner";
+          $errors[] = lang("MUSTOWNER");
         }
         if (empty($cat)) {
-          $errors[] = "Must Choose category";
+          $errors[] = lang("MUSTCAT");
         }
         if ($errors) {
           redirect_home($errors, "back", "danger");
@@ -325,7 +325,55 @@
       }
     // end edit
     }elseif ($action == "update") {
-      
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        echo "<h1 class='text-center'>" . lang('UPDATEITEM') ."</h1>";
+        $item_id = $_POST["id"];
+        $item_name = $_POST["name"];
+        $item_desc = $_POST["description"];
+        $item_price = $_POST["price"];
+        $made_in = $_POST["madein"];
+        $status = $_POST["status"];
+        $item_owner = $_POST["owner"];
+        $item_cat = $_POST["cat"];
+        $errors = [];
+        if (empty($item_name)) {
+          $errors[] = lang("ITEMNAMEEMPTY");
+        }
+        if (empty($item_desc)) {
+          $errors[] = lang("ITEMDESCEMPTY");
+        }
+        if (empty($item_price)) {
+          $errors[] = lang("ITEMPRICEEMPTY");
+        }
+        if (empty($made_in)) {
+          $errors[] = lang("ITECOUNTRYEMPTY");
+        }
+        if (empty($status)) {
+          $errors[] = lang("MUSTSTATUS");
+        }
+        if (empty($item_owner)) {
+          $errors[] = lang("MUSTOWNER");
+        }
+        if (empty($item_cat)) {
+          $errors[] = lang("MUSTCAT");
+        }
+        if ($errors) {
+          redirect_home($errors, "back", "danger");
+        }
+        if (empty($errors)) {
+          $stmt = $con->prepare("UPDATE items 
+          SET 
+          name = ?, description = ?, price = ?, made_in = ?, status = ?, cat_id = ?, user_id = ?
+          where id = ?");
+          $stmt->execute([$item_name, $item_desc, $item_price, $made_in, $status, $item_cat, $item_owner, $item_id]);
+          $count = $stmt->rowCount();
+          if ($count):
+            redirect_home([lang("ITEMUPDATED")], "back", "success", false);
+          else:
+            redirect_home([lang("NOITEMUPDATED")], "back", "danger", false);
+          endif;
+        }
+      }
     }elseif ($action == "delete") {
       
     }elseif ($action == "approve") {
