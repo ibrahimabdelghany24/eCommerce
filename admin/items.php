@@ -50,11 +50,14 @@
                 echo "<td>
                 <a href='?action=edit&item_id={$item["id"]}' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i>". lang("EDIT") . "</a>
                 <form method='POST' action='?action=delete' style='display:inline;'>
-                <input type='hidden' name='userid' value='{$item["id"]}'>
+                <input type='hidden' name='itemid' value='{$item["id"]}'>
                 <button type='submit' class='btn btn-danger confirm'>
                 <i class='fa-solid fa-trash'></i> ". lang("DELETE") ."
                 </button>
                 </form>";
+                if (!$item["approval"]):
+                  echo "<a href='?action=approve&item_id={$item["id"]}' class='btn btn-primary'><i class='fa-solid fa-square-check'></i> " . lang("APPROVE") . "</a>";
+                endif;
                 echo "</td>";
                 echo "<tr>";
               endforeach;
@@ -324,7 +327,7 @@
         redirect_home([lang("NOITEM")], "items.php", "danger");
       }
     // end edit
-    }elseif ($action == "update") {
+    }elseif ($action == "update") { // update page
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<h1 class='text-center'>" . lang('UPDATEITEM') ."</h1>";
         $item_id = $_POST["id"];
@@ -374,10 +377,36 @@
           endif;
         }
       }
-    }elseif ($action == "delete") {
-      
+    // end update
+    }elseif ($action == "delete") { // delete page
+      if ($_SERVER["REQUEST_METHOD"] == "POST"):
+        echo "<h1 class='text-center'>". lang("DELETEITEM") ."</h1>";
+        $item_id = (isset($_POST["itemid"]) && is_numeric($_POST["itemid"])) ? intval($_POST["itemid"]) : 0;
+        if (is_exist("id", "items", $item_id)):
+          $stmt = $con->prepare("DELETE FROM items WHERE id = ? LIMIT 1");
+          $stmt->execute([$item_id]);
+          $msg = [lang("ITEMDELETED")];
+          redirect_home($msg, "back", "success");
+        else:
+          $msg = [lang("NOITEM")];
+          redirect_home($msg, "back", "danger", false);
+        endif;
+      else:
+        redirect_home([lang("CANTBROWSE")], "back", "danger", false);
+      endif;
+    // end delete
     }elseif ($action == "approve") {
-      
+      echo "<h1 class='text-center'>". lang("APPROVEITEM") ."</h1>";
+      $item_id = (isset($_GET["item_id"]) && is_numeric($_GET["item_id"])) ? intval($_GET["item_id"]) : 0;
+      if (is_exist("id", "items", $item_id)):
+        $stmt = $con->prepare("UPDATE items SET approval = ? WHERE id = ?");
+        $stmt->execute([1, $item_id]);
+        $msg = [lang("ITEMAPPROVED")];
+        redirect_home($msg, "back", "success");
+      else:
+        $msg = [lang("NOITEM")];
+        redirect_home($msg, "back", "danger", false);
+      endif;
     }
     include($tpl . "footer.php");
   }else {

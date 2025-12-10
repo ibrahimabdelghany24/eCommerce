@@ -76,6 +76,7 @@
       "MANAGEITEMS" => "Manage Items",
       "ADDITEM" => "Add Item",
       "EDITITEM" => "Edit Item",
+      "DELETEITEM" => "Delete Item",
       "UPDATEITEM" => "Update Item",
       "ITEMNAME" => "Item Name",
       "ITEMDESCRIPTION" => "Item Description",
@@ -83,6 +84,9 @@
       "ADDDATE" => "Add Date",
       "CATEGORY" => "Category",
       "MADEIN" => "Made in",
+      "APPROVE" => "Approve",
+      "ITEMAPPROVED" => "Item Approved",
+      "APPROVEITEM" => "Approve Item",
       "ITEMSTATUS" => "Item Status: ",
       "ITEMOWNER" => "Item Owner: ",
       "ITEMCAT" => "Item Category: ",
@@ -138,6 +142,7 @@
       "MUSTSTATUS" => "Must Choose Status",
       "MUSTCAT" => "Must Choose Category",
       "MUSTOWNER" => "Must Choose The Owner",
+      "ITEMDELETED" => "Item deleted",
     );
     return $lang[$phrase];
   }

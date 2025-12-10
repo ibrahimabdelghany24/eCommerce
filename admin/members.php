@@ -257,16 +257,14 @@ if (isset($_SESSION["username"])) {
   }elseif ($action == "delete") { // delete page
     if ($_SERVER["REQUEST_METHOD"] == "POST"):
       echo "<h1 class='text-center'>". lang("DELETEUSER") ."</h1>";
-      $row = 0;
       $userid = (isset($_POST["userid"]) && is_numeric($_POST["userid"])) ? intval($_POST["userid"]) : 0;
       if (is_exist("userid", "users", $userid)):
         $stmt = $con->prepare("DELETE FROM users WHERE userid = ? LIMIT 1");
         $stmt->execute([$userid]);
-        $row = $stmt->rowCount();
         $msg = [lang("USERDELETED")];
         redirect_home($msg, "back", "success");
       else:
-        $msg = lang("NOID");
+        $msg = [lang("NOID")];
         redirect_home($msg, "back", "danger", false);
       endif;
     else:
@@ -279,11 +277,10 @@ if (isset($_SESSION["username"])) {
     if (is_exist("userid", "users", $userid)):
       $stmt = $con->prepare("UPDATE users SET reg_status = ? WHERE userid = ?");
       $stmt->execute([1, $userid]);
-      $row = $stmt->rowCount();
       $msg = [lang("USERACTIVATED")];
       redirect_home($msg, "back", "success");
     else:
-      $msg = lang("NOID");
+      $msg = [lang("NOID")];
       redirect_home($msg, "back", "danger");
     endif;
   // end activate

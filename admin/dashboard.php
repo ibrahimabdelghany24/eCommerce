@@ -38,7 +38,7 @@
         <div class="col-md-3">
           <div class="stat st-comments">
             <?=lang("TOTALCOMMENTS") ?>
-            <span>3500</span>
+            <span>0</span>
           </div>
         </div>
       </div>
@@ -47,15 +47,15 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="panel panel-default">
-            <?php $latest = 6;?>
+            <?php $latest_users = 6;?>
             <div class="panel-heading">
               <i class="fa-solid fa-users"></i>
-              <?=$latest . " " . lang("LATESTMEMBERS")?>
+              <?=$latest_users . " " . lang("LATESTMEMBERS")?>
             </div>
             <div class="panel-body">
               <ul class="list-unstyled latest-users">
                 <?php
-                  $data = get_latest("*", "users", "date", $latest);
+                  $data = get_latest("*", "users", "date", $latest_users);
                   foreach ($data as $user):
                     echo "<li>{$user["username"]}
                     <span>
@@ -81,11 +81,34 @@
         </div>
         <div class="col-lg-6">
           <div class="panel panel-default">
+            <?php $latest_items = 6;?>
             <div class="panel-heading">
               <i class="fa-solid fa-tag"></i> <?=lang("LATESTITEMS") ?>
             </div>
             <div class="panel-body">
-              test
+            <ul class="list-unstyled latest-users">
+                <?php
+                  $data = get_latest("*", "items", "add_date", $latest_items);
+                  foreach ($data as $item):
+                    echo "<li>{$item["name"]}
+                    <span>
+                      <a class='btn btn-success' 
+                      href='members.php?action=edit&item_id={$item['id']}'>
+                    <i class='fa-solid fa-edit'></i> ";
+                    echo lang("EDIT");
+                    echo "</a>";
+                    if (!$item["approval"]):
+                      echo "<a href='items.php?action=approve&item_id={$item["id"]}'
+                        class='btn btn-primary' style='margin-left:5px;'>
+                        <i class='fa-solid fa-square-check'></i> Activate
+                        </a>";
+                    endif;
+                    echo "</span>
+                    </li>";
+                  endforeach;
+                  ?>
+              </ul>
+              <hr style="margin:0;">
             </div>
           </div>
         </div>
