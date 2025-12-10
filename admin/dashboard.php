@@ -57,19 +57,19 @@
                 <?php
                   $data = get_latest("*", "users", "date", $latest_users);
                   foreach ($data as $user):
-                    echo "<li>{$user["username"]}
-                    <span>
-                      <a class='btn btn-success' 
+                    echo "<li>{$user["username"]}";
+                    echo "<span>";
+                    if (!$user["reg_status"]):
+                      echo "<a href='members.php?action=activate&userid={$user["userid"]}'
+                        class='btn btn-primary' style='margin-right:5px;'>
+                        <i class='fa-solid fa-square-check'></i> ".lang("ACTIVATE")."
+                        </a>";
+                    endif;
+                    echo "<a class='btn btn-success' 
                       href='members.php?action=edit&userid={$user['userid']}'>
                     <i class='fa-solid fa-edit'></i> ";
                     echo lang("EDIT");
                     echo "</a>";
-                    if (!$user["reg_status"]):
-                      echo "<a href='members.php?action=activate&userid={$user["userid"]}'
-                        class='btn btn-primary' style='margin-left:5px;'>
-                        <i class='fa-solid fa-square-check'></i> Activate
-                        </a>";
-                    endif;
                     echo "</span>
                     </li>";
                   endforeach;
@@ -90,19 +90,19 @@
                 <?php
                   $data = get_latest("*", "items", "add_date", $latest_items);
                   foreach ($data as $item):
-                    echo "<li>{$item["name"]}
-                    <span>
-                      <a class='btn btn-success' 
+                    echo "<li>{$item["name"]}";
+                    echo "<span>";
+                      if (!$item["approval"]):
+                        echo "<a href='items.php?action=approve&item_id={$item["id"]}'
+                          class='btn btn-primary' style='margin-right:5px;'>
+                          <i class='fa-solid fa-square-check'></i> ".lang("APPROVE")."
+                          </a>";
+                      endif;
+                    echo "<a class='btn btn-success' 
                       href='members.php?action=edit&item_id={$item['id']}'>
                     <i class='fa-solid fa-edit'></i> ";
                     echo lang("EDIT");
                     echo "</a>";
-                    if (!$item["approval"]):
-                      echo "<a href='items.php?action=approve&item_id={$item["id"]}'
-                        class='btn btn-primary' style='margin-left:5px;'>
-                        <i class='fa-solid fa-square-check'></i> Activate
-                        </a>";
-                    endif;
                     echo "</span>
                     </li>";
                   endforeach;
