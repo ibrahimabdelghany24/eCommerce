@@ -7,27 +7,39 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="dashboard.php"><?php echo lang("HOME")?></a>
+      <a class="navbar-brand active" href="dashboard.php"><?= lang("HOME")?></a>
     </div>
-
     <div class="collapse navbar-collapse" id="app-nav">
-      <ul class="nav navbar-nav">
-        <li><a href="categories.php"><?php echo lang("CATEGORIES") ?></a></li>
-        <li><a href="items.php"><?php echo lang("ITEMS") ?></a></li>
-        <li><a href="members.php"><?php echo lang("MEMBERS") ?></a></li>
-        <li><a href="#"><?php echo lang("STATISTICS") ?></a></li>
-        <li><a href="#"><?php echo lang("LOGS") ?></a></li>
+      <ul class="nav navbar-nav links">
+        <li><a href="categories.php"><?= lang("CATEGORIES") ?></a></li>
+        <li><a href="items.php"><?= lang("ITEMS") ?></a></li>
+        <li><a href="members.php"><?= lang("MEMBERS") ?></a></li>
+        <li><a href="comments.php"><?= lang("COMMENTS") ?></a></li>
+        <li><a href="#"><?= lang("STATISTICS") ?></a></li>
+        <li><a href="#"><?= lang("LOGS") ?></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION["username"] ?><span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= $_SESSION["username"] ?><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="members.php?action=edit&userid=<?php echo $_SESSION['userid'] ?>"><?php echo lang("EDITPROFILE") ?></a></li>
-            <li><a href="#"><?php echo lang("SETTINGS") ?></a></li>
-            <li><a href="logout.php"><?php echo lang("LOGOUT") ?></a></li>
+            <li><a href="members.php?action=edit&userid=<?= $_SESSION['userid'] ?>"><?= lang("EDITPROFILE") ?></a></li>
+            <li><a href="#"><?= lang("SETTINGS") ?></a></li>
+            <li><a href="logout.php"><?= lang("LOGOUT") ?></a></li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+<script>
+  const navLinks = document.querySelectorAll("nav.navbar #app-nav .links li a");
+  const brandLink = document.querySelector(".navbar-brand")
+  if (navLinks) {
+    navLinks.forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add("active");
+        brandLink.classList.remove("active");
+      }
+    });
+  }
+</script>

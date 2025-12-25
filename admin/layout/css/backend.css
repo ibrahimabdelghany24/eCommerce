@@ -95,6 +95,12 @@ a {
   font-size: 1em;
 }
 
+nav.navbar #app-nav .links li a.active,
+.navbar-brand.active {
+  color: #fff;
+  background-color: transparent;
+}
+
 .nav > li > a, .navbar-brand {
   padding: 15px 12px;
 }

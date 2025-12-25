@@ -5,6 +5,7 @@ const viewLess = document.querySelector(".v-less");
 const viewFull = document.querySelector(".v-full");
 const categorey = document.querySelectorAll(".cat");
 const stars = document.querySelectorAll(".star i");
+
 if (eyeIcon) {
   eyeIcon.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye")) {
@@ -90,4 +91,5 @@ stars.forEach((e, index) => {
     }
   })
 })
+
 

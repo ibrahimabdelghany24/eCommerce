@@ -104,6 +104,15 @@
       "SELECTCAT"       => "Select Category",
       "SELECTSTATUS"    => "Select Status",
 
+      // Comments
+      "COMMENTS" => "Comments",
+      "COMMENT" => "Comment",
+      "DELETECOMMENT" => "Delete Comment",
+      "COMMENTDELETED" => "Comment Deleted",
+      "APPROVECOMMENT" => "Approve Comment",
+      "COMMENTAPPROVED" => "Comment Approved",
+      "MANAGECOMMENTS" => "Manage Comments",
+
       // Messages
       "CANTBROWSE"    => "You can't browse this page directly",
       "NOID"          => "There is no such ID",

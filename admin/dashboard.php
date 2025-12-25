@@ -38,7 +38,11 @@
         <div class="col-md-3">
           <div class="stat st-comments">
             <?=lang("TOTALCOMMENTS") ?>
-            <span>0</span>
+            <span>
+              <a href="comments.php">
+              <?=count_item("c_id", "comments") ?>
+              </a>
+            </span>
           </div>
         </div>
       </div>

@@ -371,7 +371,7 @@
           $stmt->execute([$item_name, $item_desc, $item_price, $made_in, $status, $item_cat, $item_owner, $item_id]);
           $count = $stmt->rowCount();
           if ($count):
-            redirect_home([lang("ITEMUPDATED")], "back", "success", false);
+            redirect_home([lang("ITEMUPDATED")], "itme.php", "success", false);
           else:
             redirect_home([lang("NOITEMUPDATED")], "back", "danger", false);
           endif;

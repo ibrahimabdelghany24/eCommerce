@@ -11,7 +11,7 @@
   function redirect_home($msg, $url=null, $class, $btn=true, $time=5) {
     if ($url === null){
       $url = "index.php";
-    }elseif ($url == "back"){
+    }elseif ($url === "back"){
       if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
         $url = $_SERVER['HTTP_REFERER'];
       }else {
