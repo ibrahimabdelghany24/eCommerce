@@ -35,9 +35,9 @@
       }else {
         echo "<p style='font-size:20px; border:none;'>". lang("REDIRECT") . $time . " secondes</p>";
         header("refresh: $time; url=$url");
-        exit();
       }
       echo "</div>";
+      exit();
     endif;
   }
   // Check if exist
